@@ -41,6 +41,16 @@ func TestPromptConfigurator_Read_UnsupportedType(t *testing.T) {
 	assert.EqualError(t, err, expectedError)
 }
 
+func TestPromptConfigurator_Read_ConfigIsDir(t *testing.T) {
+	t.Parallel()
+
+	c := New(t.TempDir())
+	_, err := c.Read()
+
+	expectedError := "config file is a directory"
+	assert.EqualError(t, err, expectedError)
+}
+
 func TestPromptConfigurator_Read_Error(t *testing.T) {
 	t.Parallel()
 

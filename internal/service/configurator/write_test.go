@@ -16,6 +16,16 @@ import (
 
 func TestPromptConfigurator_Write(t *testing.T) {}
 
+func TestPromptConfigurator_Write_ConfigIsDir(t *testing.T) {
+	t.Parallel()
+
+	c := New(t.TempDir())
+	err := c.Write(service.Config{})
+
+	expectedError := "config file is a directory"
+	assert.EqualError(t, err, expectedError)
+}
+
 func TestPromptConfigurator_Clean(t *testing.T) {
 	t.Parallel()
 

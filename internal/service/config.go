@@ -10,6 +10,15 @@ const (
 	CredentialsProviderKeychain = CredentialsProviderType("keychain")
 	// CredentialsProviderNone indicates that there is no credentials provider.
 	CredentialsProviderNone = CredentialsProviderType("")
+
+	// OutputFormatPrettyJSON is prettified json format.
+	OutputFormatPrettyJSON = "pretty-json"
+	// OutputFormatJSON is json format.
+	OutputFormatJSON = "json"
+	// OutputFormatCSV is csv format.
+	OutputFormatCSV = "csv"
+	// OutputFormatNone is no format.
+	OutputFormatNone = ""
 )
 
 // Config is a global config for the application.

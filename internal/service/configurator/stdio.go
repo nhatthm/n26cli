@@ -1,18 +1,11 @@
 package configurator
 
 import (
-	"io"
-
 	"github.com/AlecAivazis/survey/v2"
 	"github.com/AlecAivazis/survey/v2/terminal"
-)
 
-// StdioProvider is a wrapper around *cobra.Command to provide stdin, stdout and stderr to survey.
-type StdioProvider interface {
-	OutOrStdout() io.Writer
-	ErrOrStderr() io.Writer
-	InOrStdin() io.Reader
-}
+	"github.com/nhatthm/n26cli/internal/io"
+)
 
 // WithStdio configures stdio for prompt.
 func WithStdio(stdio terminal.Stdio) Option {
@@ -24,7 +17,7 @@ func WithStdio(stdio terminal.Stdio) Option {
 }
 
 // WithStdioProvider configures stdio for prompt.
-func WithStdioProvider(p StdioProvider) Option {
+func WithStdioProvider(p io.StdioProvider) Option {
 	in, ok := p.InOrStdin().(terminal.FileReader)
 	if !ok {
 		return configureNothing

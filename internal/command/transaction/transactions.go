@@ -2,13 +2,13 @@ package transaction
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/bool64/ctxd"
 	"github.com/nhatthm/go-clock"
 	"github.com/nhatthm/n26api/pkg/transaction"
 	"github.com/spf13/cobra"
 
+	"github.com/nhatthm/n26cli/internal/fmt"
 	"github.com/nhatthm/n26cli/internal/service"
 	"github.com/nhatthm/n26cli/internal/time"
 )
@@ -17,6 +17,7 @@ import (
 type TransactionsDeps interface {
 	Clock() clock.Clock
 	TransactionsFinder() transaction.Finder
+	DataWriter() fmt.DataWriter
 	CtxdLogger() ctxd.Logger
 }
 
@@ -53,7 +54,5 @@ func findTransactions(ctx context.Context, deps TransactionsDeps, from, to strin
 		return err
 	}
 
-	fmt.Println(trans)
-
-	return nil
+	return deps.DataWriter().WriteData(trans)
 }

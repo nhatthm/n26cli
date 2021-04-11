@@ -7,6 +7,7 @@ require (
 	github.com/bool64/ctxd v0.1.3
 	github.com/bool64/zapctxd v0.1.3
 	github.com/creack/pty v1.1.11 // indirect
+	github.com/gocarina/gocsv v0.0.0-20210408192840-02d7211d929d
 	github.com/godbus/dbus/v5 v5.0.4 // indirect
 	github.com/google/uuid v1.2.0
 	github.com/kr/pty v1.1.8 // indirect
@@ -14,7 +15,7 @@ require (
 	github.com/mitchellh/mapstructure v1.4.1
 	github.com/nhatthm/go-clock v0.3.0
 	github.com/nhatthm/n26aas v0.1.0
-	github.com/nhatthm/n26api v0.2.5
+	github.com/nhatthm/n26api v0.2.6
 	github.com/nhatthm/n26keychain v0.3.1
 	github.com/nhatthm/n26prompt v0.1.2
 	github.com/nhatthm/surveymock v0.3.3

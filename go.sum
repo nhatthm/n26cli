@@ -67,6 +67,8 @@ github.com/go-kit/kit v0.8.0/go.mod h1:xBxKIO96dXMWWy0MnWVtmwkA9/13aqxPnvrjFYMA2
 github.com/go-logfmt/logfmt v0.3.0/go.mod h1:Qt1PoO58o5twSAckw1HlFXLmHsOX5/0LbT9GBnD5lWE=
 github.com/go-logfmt/logfmt v0.4.0/go.mod h1:3RMwSq7FuexP4Kalkev3ejPJsZTpXXBr9+V4qmtdjCk=
 github.com/go-stack/stack v1.8.0/go.mod h1:v0f6uXyyMGvRgIKkXu+yp6POWl0qKG85gN/melR3HDY=
+github.com/gocarina/gocsv v0.0.0-20210408192840-02d7211d929d h1:r3mStZSyjKhEcgbJ5xtv7kT5PZw/tDiFBTMgQx2qsXE=
+github.com/gocarina/gocsv v0.0.0-20210408192840-02d7211d929d/go.mod h1:5YoVOkjYAQumqlV356Hj3xeYh4BdZuLE0/nRkf2NKkI=
 github.com/godbus/dbus/v5 v5.0.3/go.mod h1:xhWf0FNVPg57R7Z0UbKHbJfkEywrmjJnf7w5xrFpKfA=
 github.com/godbus/dbus/v5 v5.0.4 h1:9349emZab16e7zQvpmsbtjc18ykshndd8y2PG3sgJbA=
 github.com/godbus/dbus/v5 v5.0.4/go.mod h1:xhWf0FNVPg57R7Z0UbKHbJfkEywrmjJnf7w5xrFpKfA=
@@ -193,8 +195,9 @@ github.com/nhatthm/httpmock v0.4.5 h1:JVYdx66fxjU13LwLF9+DIm6VodT+dYn/rUMWHO2KW5
 github.com/nhatthm/httpmock v0.4.5/go.mod h1:t25iJhLZKE5PiPkpVyriqXB7f1EFgzDVw7sVJEINRZg=
 github.com/nhatthm/n26aas v0.1.0 h1:nEWLtWgDcCy3e5HM6lG7wd3dz9PEjricBox3aEr26yw=
 github.com/nhatthm/n26aas v0.1.0/go.mod h1:mj+93KHlGMLuUZlwraHW93DqJvfofHlLfcCrvPLHYow=
-github.com/nhatthm/n26api v0.2.5 h1:9OyMR2Uburf4B18mcSNyCs0EilxT9Id5kKlhgifz9kU=
 github.com/nhatthm/n26api v0.2.5/go.mod h1:T3iZT2fY5atU/eynBWHnR/KX7ONAWevtq4nUH0q1muY=
+github.com/nhatthm/n26api v0.2.6 h1:n6OWjpYWmipwCfRvhjHi8J/bbaViXjg0Q6TsBRIdHfA=
+github.com/nhatthm/n26api v0.2.6/go.mod h1:T3iZT2fY5atU/eynBWHnR/KX7ONAWevtq4nUH0q1muY=
 github.com/nhatthm/n26keychain v0.3.1 h1:n3maS+g7KgSbp3a+I2WFBds9IBG8Ntl0PAnQz/WOZ9s=
 github.com/nhatthm/n26keychain v0.3.1/go.mod h1:yhNgJxCKkcIDZqNtitXMmkooa9WVbo+AWfpC3iDgWjk=
 github.com/nhatthm/n26prompt v0.1.2 h1:qgk8OcYibV2MIR+IqLND641Y3XacivIwCTtHx9J3ZEM=

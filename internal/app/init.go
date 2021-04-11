@@ -14,6 +14,7 @@ import (
 	"github.com/nhatthm/n26keychain/token"
 	prompt "github.com/nhatthm/n26prompt/credentials"
 
+	"github.com/nhatthm/n26cli/internal/fmt"
 	"github.com/nhatthm/n26cli/internal/service"
 )
 
@@ -23,6 +24,7 @@ var ErrUnsupportedCredentialsProvider = errors.New("unsupported credentials prov
 // MakeServiceLocator creates application service locator.
 func MakeServiceLocator(l *service.Locator) error {
 	initLogger(l)
+	initFormatter(l)
 
 	l.ClockProvider = clock.New()
 
@@ -38,6 +40,26 @@ func MakeServiceLocator(l *service.Locator) error {
 
 func initLogger(l *service.Locator) {
 	l.LoggerProvider = zapctxd.New(l.Config.Log)
+}
+
+func initFormatter(l *service.Locator) {
+	switch l.Config.OutputFormat {
+	case service.OutputFormatPrettyJSON,
+		service.OutputFormatNone:
+		w := fmt.JSONWriter(l.OutOrStdout())
+		w.SetIndent("", "    ")
+
+		l.DataWriterProvider = w
+
+	case service.OutputFormatJSON:
+		l.DataWriterProvider = fmt.JSONWriter(l.OutOrStdout())
+
+	case service.OutputFormatCSV:
+		l.DataWriterProvider = fmt.CSVWriter(l.OutOrStdout())
+
+	default:
+		panic("unknown output format")
+	}
 }
 
 func initN26Client(cfg service.N26Config, clock clock.Clock, logger ctxd.Logger) (*n26aas.Service, error) {

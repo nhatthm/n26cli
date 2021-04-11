@@ -460,3 +460,17 @@ func TestPromptConfigurator_Configure(t *testing.T) {
 		})
 	}
 }
+
+func TestPromptConfigurator_ConfigureErrorReadingConfigFile(t *testing.T) {
+	t.Parallel()
+
+	configFile := filepath.Join(t.TempDir(), "config.unknown")
+	_, err := os.Create(configFile)
+	require.NoError(t, err)
+
+	c := New(configFile)
+	err = c.Configure()
+
+	expectedError := `Unsupported Config Type "unknown"`
+	assert.EqualError(t, err, expectedError)
+}

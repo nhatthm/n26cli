@@ -1,0 +1,47 @@
+package configurator
+
+import (
+	"io"
+
+	"github.com/AlecAivazis/survey/v2"
+	"github.com/AlecAivazis/survey/v2/terminal"
+)
+
+// StdioProvider is a wrapper around *cobra.Command to provide stdin, stdout and stderr to survey.
+type StdioProvider interface {
+	OutOrStdout() io.Writer
+	ErrOrStderr() io.Writer
+	InOrStdin() io.Reader
+}
+
+// WithStdio configures stdio for prompt.
+func WithStdio(stdio terminal.Stdio) Option {
+	return func(c *PromptConfigurator) {
+		c.defaultOptions = append(c.defaultOptions, survey.WithStdio(
+			stdio.In, stdio.Out, stdio.Err,
+		))
+	}
+}
+
+// WithStdioProvider configures stdio for prompt.
+func WithStdioProvider(p StdioProvider) Option {
+	in, ok := p.InOrStdin().(terminal.FileReader)
+	if !ok {
+		return configureNothing
+	}
+
+	out, ok := p.OutOrStdout().(terminal.FileWriter)
+	if !ok {
+		return configureNothing
+	}
+
+	return func(c *PromptConfigurator) {
+		WithStdio(terminal.Stdio{
+			In:  in,
+			Out: out,
+			Err: p.ErrOrStderr(),
+		})(c)
+	}
+}
+
+func configureNothing(*PromptConfigurator) {}

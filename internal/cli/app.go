@@ -17,7 +17,7 @@ func NewApp() *cobra.Command {
 	root := &cobra.Command{
 		Use:   "n26",
 		Short: "n26 command-line interface",
-		Long:  "an awesome tool for managing your N26 account from the terminal",
+		Long:  "An awesome tool for managing your N26 account from the terminal",
 	}
 
 	root.PersistentFlags().StringVarP(&rootCfg.ConfigFile, "config", "c", rootCfg.ConfigFile, "configuration file")

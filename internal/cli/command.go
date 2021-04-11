@@ -65,7 +65,7 @@ func makeLocator(
 ) error {
 	l.StdioProvider = io
 
-	c, err := configurator.New(rootCfg.ConfigFile).Read()
+	c, err := configurator.New(rootCfg.ConfigFile).SafeRead()
 	if err != nil {
 		return err
 	}
@@ -100,7 +100,7 @@ func logLevel() zapcore.Level {
 }
 
 func handleErr(fmt fmt.Fmt, err error) {
-	if err != nil {
+	if err == nil {
 		return
 	}
 

@@ -78,14 +78,16 @@ If you do it on time, N26 will grant an access token, and the tool will persist 
 
 ## Security & GDPR
 
-This tool has `0` tracking and will never track your usage. Therefore, I will never know if you have any issues with it
+The tool has `0` tracking and will NEVER track your usage. Therefore, I will never know if you have any issues with it
 unless you create one in 
 [the board](https://github.com/nhatthm/n26cli/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc).
 
-This tool does NOT and will NOT share your email or credentials with any other 3rd parties.
+The tool does NOT and will NOT share your email and credentials with any other 3rd parties.
 
-This tool will save your access token to your system keyring, and also your credentials (if you choose to save it, see
+The tool will save your access token to your system keyring, and also your credentials (if you choose to save it, see
 the [Configuration](#Configuration) and [Authentication](#Authentication) section).
+
+The tool NEVER shows your email and credentials on the screen, in the logs or verbose / debug output.
 
 ## Development
 

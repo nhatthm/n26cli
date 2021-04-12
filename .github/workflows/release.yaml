@@ -1,0 +1,80 @@
+name: release
+on:
+  release:
+    types:
+      - created
+env:
+  GO111MODULE: "on"
+  GO_VERSION: "1.16"
+jobs:
+  release:
+    strategy:
+      matrix:
+        os: [ ubuntu-latest, macos-latest ]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Get release
+        id: get_release
+        uses: bruceadams/get-release@v1.2.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Install Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: ${{ env.GO_VERSION }}
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Go cache
+        uses: actions/cache@v2
+        with:
+          # In order:
+          # * Module download cache
+          # * Build cache (Linux)
+          path: |
+            ~/go/pkg/mod
+            ~/.cache/go-build
+          key: ${{ runner.os }}-go-cache-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-go-cache
+      - name: Test
+        run: |
+          make test
+      - name: Build Artifact
+        id: build_artifact
+        env:
+          VERSION: ${{ steps.get_release.outputs.tag_name }}
+        run: |
+          export VERSION=$(echo "$VERSION" | tr -d 'v')
+
+          if [ "$RUNNER_OS" == "Linux" ]; then
+              make build-linux
+
+              mv build/n26-linux build/n26
+
+              export BUILD_OS="linux"
+              export BUILD_ARCH="amd64"
+          elif [ "$RUNNER_OS" == "Windows" ]; then
+              echo >&2 "windows is not supported"
+              exit 1
+          else
+              make build
+
+              export BUILD_OS="darwin"
+              export BUILD_ARCH="amd64"
+          fi
+
+          cd build
+          tar czf n26-${VERSION}-${BUILD_OS}-${BUILD_ARCH}.tar.gz n26
+
+          echo "BUILD_VERSION=$VERSION" >> $GITHUB_ENV
+          echo "BUILD_OS=$BUILD_OS" >> $GITHUB_ENV
+          echo "BUILD_ARCH=$BUILD_ARCH" >> $GITHUB_ENV
+      - name: Upload Artifact
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.get_release.outputs.upload_url }}
+          asset_path: build/n26-${{ env.BUILD_VERSION }}-${{ env.BUILD_OS }}-${{ env.BUILD_ARCH }}.tar.gz
+          asset_name: n26-${{ env.BUILD_VERSION }}-${{ env.BUILD_OS }}-${{ env.BUILD_ARCH }}.tar.gz
+          asset_content_type: application/gzip

@@ -28,17 +28,17 @@ func (c *PromptConfigurator) writeToKeychain(cfg service.Config) error {
 }
 
 func (c *PromptConfigurator) writeToFile(cfg service.Config) error {
-	fileInfo, err := os.Stat(c.configFile)
+	fileInfo, err := c.fs.Stat(c.configFile)
 	if err != nil {
 		if !os.IsNotExist(err) {
 			return err
 		}
 
-		if err := os.MkdirAll(filepath.Dir(c.configFile), os.ModePerm); err != nil {
+		if err := c.fs.MkdirAll(filepath.Dir(c.configFile), os.ModePerm); err != nil {
 			return err
 		}
 
-		if _, err := os.Create(c.configFile); err != nil {
+		if _, err := c.fs.Create(c.configFile); err != nil {
 			return err
 		}
 	}

@@ -7,6 +7,7 @@ import (
 	"github.com/google/uuid"
 	keychainCredentials "github.com/nhatthm/n26keychain/credentials"
 	keychainToken "github.com/nhatthm/n26keychain/token"
+	"github.com/spf13/afero"
 	"github.com/spf13/viper"
 
 	"github.com/nhatthm/n26cli/internal/service"
@@ -30,6 +31,7 @@ type Configurator interface {
 
 // PromptConfigurator manages service.Config.
 type PromptConfigurator struct {
+	fs                  afero.Fs
 	viper               *viper.Viper
 	keychainCredentials keychainCredentials.KeychainCredentials
 	keychainToken       keychainToken.KeychainStorage
@@ -57,6 +59,7 @@ func (c *PromptConfigurator) getTokenStorage() keychainToken.KeychainStorage {
 // New creates a new Configurator.
 func New(configFile string, options ...Option) *PromptConfigurator {
 	c := &PromptConfigurator{
+		fs:         afero.NewOsFs(),
 		viper:      viper.New(),
 		configFile: configFile,
 	}
@@ -66,6 +69,12 @@ func New(configFile string, options ...Option) *PromptConfigurator {
 	}
 
 	return c
+}
+
+func withFileSystem(fs afero.Fs) Option {
+	return func(c *PromptConfigurator) {
+		c.fs = fs
+	}
 }
 
 func withKeychainCredentials(credentials keychainCredentials.KeychainCredentials) Option {

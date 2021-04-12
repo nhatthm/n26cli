@@ -27,7 +27,7 @@ func (c *PromptConfigurator) SafeRead() (service.Config, error) {
 func (c *PromptConfigurator) Read() (service.Config, error) {
 	var cfg service.Config
 
-	file, err := os.Stat(c.configFile)
+	file, err := c.fs.Stat(c.configFile)
 	if err != nil {
 		return service.Config{}, err
 	}

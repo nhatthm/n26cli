@@ -4,17 +4,74 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"os"
 	"testing"
 
 	"github.com/google/uuid"
+	"github.com/nhatthm/aferomock"
 	keychainCredentialsMock "github.com/nhatthm/n26keychain/credentials/mock"
 	keychainTokenMock "github.com/nhatthm/n26keychain/token/mock"
+	"github.com/spf13/afero"
 	"github.com/stretchr/testify/assert"
 
 	"github.com/nhatthm/n26cli/internal/service"
 )
 
-func TestPromptConfigurator_Write(t *testing.T) {}
+func TestPromptConfigurator_Write_Error(t *testing.T) {
+	t.Parallel()
+
+	testCases := []struct {
+		scenario      string
+		mockFs        aferomock.FsMocker
+		expectedError string
+	}{
+		{
+			scenario: "stat error",
+			mockFs: aferomock.MockFs(func(fs *aferomock.Fs) {
+				fs.On("Stat", "path/config.toml").
+					Return(nil, errors.New("stat error"))
+			}),
+			expectedError: "stat error",
+		},
+		{
+			scenario: "mkdir error",
+			mockFs: aferomock.MockFs(func(fs *aferomock.Fs) {
+				fs.On("Stat", "path/config.toml").
+					Return(nil, afero.ErrFileNotFound)
+
+				fs.On("MkdirAll", "path", os.ModePerm).
+					Return(errors.New("mkdir error"))
+			}),
+			expectedError: "mkdir error",
+		},
+		{
+			scenario: "create file error",
+			mockFs: aferomock.MockFs(func(fs *aferomock.Fs) {
+				fs.On("Stat", "path/config.toml").
+					Return(nil, afero.ErrFileNotFound)
+
+				fs.On("MkdirAll", "path", os.ModePerm).
+					Return(nil)
+
+				fs.On("Create", "path/config.toml").
+					Return(nil, errors.New("create file error"))
+			}),
+			expectedError: "create file error",
+		},
+	}
+
+	for _, tc := range testCases {
+		tc := tc
+		t.Run(tc.scenario, func(t *testing.T) {
+			t.Parallel()
+
+			c := New("path/config.toml", withFileSystem(tc.mockFs(t)))
+			err := c.Write(service.Config{})
+
+			assert.EqualError(t, err, tc.expectedError)
+		})
+	}
+}
 
 func TestPromptConfigurator_Write_ConfigIsDir(t *testing.T) {
 	t.Parallel()

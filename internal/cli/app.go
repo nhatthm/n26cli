@@ -8,12 +8,13 @@ import (
 
 	"github.com/nhatthm/n26cli/internal/command"
 	"github.com/nhatthm/n26cli/internal/command/transaction"
+	"github.com/nhatthm/n26cli/internal/service"
 )
 
 var rootCfg = defaultConfig()
 
 // NewApp creates a new cli application using cobra.Command.
-func NewApp() *cobra.Command {
+func NewApp(l *service.Locator) *cobra.Command {
 	root := &cobra.Command{
 		Use:   "n26",
 		Short: "n26 command-line interface",
@@ -25,7 +26,7 @@ func NewApp() *cobra.Command {
 	root.PersistentFlags().BoolVarP(&rootCfg.Debug, "debug", "d", rootCfg.Debug, "debug output")
 
 	root.AddCommand(
-		newAPICommand(transaction.NewTransactions),
+		newAPICommand(l, transaction.NewTransactions),
 		command.NewConfig(),
 		command.NewVersion(),
 	)

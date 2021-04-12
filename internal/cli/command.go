@@ -13,10 +13,9 @@ import (
 )
 
 // newAPICommand creates a new API command and decorates it with some global flags.
-func newAPICommand(newCommand func(l *service.Locator) *cobra.Command) *cobra.Command {
+func newAPICommand(l *service.Locator, newCommand func(l *service.Locator) *cobra.Command) *cobra.Command {
 	var apiCfg apiConfig
 
-	l := &service.Locator{}
 	cmd := newCommand(l)
 
 	cmd.Flags().StringVarP(&apiCfg.Username, "username", "u", "", "n26 username")
@@ -63,7 +62,9 @@ func makeLocator(
 	io io.StdioProvider,
 	apiCfg apiConfig,
 ) error {
-	l.StdioProvider = io
+	if l.StdioProvider == nil {
+		l.StdioProvider = io
+	}
 
 	c, err := configurator.New(rootCfg.ConfigFile).SafeRead()
 	if err != nil {
@@ -76,7 +77,12 @@ func makeLocator(
 		c.OutputFormat = service.OutputFormatPrettyJSON
 	}
 
-	c.Log.Level = logLevel()
+	if l.Config.Log.Level != 0 {
+		c.Log.Level = l.Config.Log.Level
+	} else {
+		c.Log.Level = logLevel()
+	}
+
 	c.Log.Output = l.ErrOrStderr()
 
 	c.N26.Username = apiCfg.Username

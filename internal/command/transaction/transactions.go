@@ -8,7 +8,7 @@ import (
 	"github.com/nhatthm/n26api/pkg/transaction"
 	"github.com/spf13/cobra"
 
-	"github.com/nhatthm/n26cli/internal/fmt"
+	"github.com/nhatthm/n26cli/internal/io"
 	"github.com/nhatthm/n26cli/internal/service"
 	"github.com/nhatthm/n26cli/internal/time"
 )
@@ -17,7 +17,7 @@ import (
 type TransactionsDeps interface {
 	Clock() clock.Clock
 	TransactionsFinder() transaction.Finder
-	DataWriter() fmt.DataWriter
+	DataWriter() io.DataWriter
 	CtxdLogger() ctxd.Logger
 }
 

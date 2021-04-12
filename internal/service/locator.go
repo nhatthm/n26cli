@@ -5,7 +5,6 @@ import (
 	clock "github.com/nhatthm/go-clock/service"
 	"github.com/nhatthm/n26aas"
 
-	"github.com/nhatthm/n26cli/internal/fmt"
 	"github.com/nhatthm/n26cli/internal/io"
 )
 
@@ -14,7 +13,7 @@ type Locator struct {
 	Config
 
 	clock.ClockProvider
-	fmt.DataWriterProvider
+	io.DataWriterProvider
 	io.StdioProvider
 	ctxd.LoggerProvider
 

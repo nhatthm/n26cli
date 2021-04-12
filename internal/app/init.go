@@ -14,7 +14,7 @@ import (
 	"github.com/nhatthm/n26keychain/token"
 	prompt "github.com/nhatthm/n26prompt/credentials"
 
-	"github.com/nhatthm/n26cli/internal/fmt"
+	"github.com/nhatthm/n26cli/internal/io"
 	"github.com/nhatthm/n26cli/internal/service"
 )
 
@@ -46,16 +46,16 @@ func initFormatter(l *service.Locator) {
 	switch l.Config.OutputFormat {
 	case service.OutputFormatPrettyJSON,
 		service.OutputFormatNone:
-		w := fmt.JSONWriter(l.OutOrStdout())
+		w := io.JSONWriter(l.OutOrStdout())
 		w.SetIndent("", "    ")
 
 		l.DataWriterProvider = w
 
 	case service.OutputFormatJSON:
-		l.DataWriterProvider = fmt.JSONWriter(l.OutOrStdout())
+		l.DataWriterProvider = io.JSONWriter(l.OutOrStdout())
 
 	case service.OutputFormatCSV:
-		l.DataWriterProvider = fmt.CSVWriter(l.OutOrStdout())
+		l.DataWriterProvider = io.CSVWriter(l.OutOrStdout())
 
 	default:
 		panic("unknown output format")

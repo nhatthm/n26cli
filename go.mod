@@ -7,16 +7,15 @@ require (
 	github.com/bool64/ctxd v0.1.3
 	github.com/bool64/zapctxd v0.1.3
 	github.com/gocarina/gocsv v0.0.0-20210408192840-02d7211d929d
-	github.com/godbus/dbus/v5 v5.0.4 // indirect
 	github.com/google/uuid v1.2.0
 	github.com/magiconair/properties v1.8.5 // indirect
 	github.com/mitchellh/mapstructure v1.4.1
 	github.com/nhatthm/aferomock v0.1.0
 	github.com/nhatthm/go-clock v0.3.0
-	github.com/nhatthm/n26aas v0.1.0
-	github.com/nhatthm/n26api v0.2.6
-	github.com/nhatthm/n26keychain v0.3.1
-	github.com/nhatthm/n26prompt v0.1.6
+	github.com/nhatthm/n26aas v0.1.2
+	github.com/nhatthm/n26api v0.2.7
+	github.com/nhatthm/n26keychain v0.3.3
+	github.com/nhatthm/n26prompt v0.1.7
 	github.com/nhatthm/surveymock v0.3.15
 	github.com/pelletier/go-toml v1.9.0 // indirect
 	github.com/spf13/afero v1.6.0
@@ -24,7 +23,6 @@ require (
 	github.com/spf13/cobra v1.1.3
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect
 	github.com/spf13/viper v1.7.1
-	github.com/stretchr/objx v0.3.0 // indirect
 	github.com/stretchr/testify v1.7.0
 	go.uber.org/multierr v1.6.0 // indirect
 	go.uber.org/zap v1.16.0

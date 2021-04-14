@@ -203,6 +203,8 @@ github.com/nhatthm/n26keychain v0.3.3 h1:9AHOJipF5DbGVLz+QhDcCfKKwcHs5a+3SSBI7Gk
 github.com/nhatthm/n26keychain v0.3.3/go.mod h1:+0a+TkFdMletanRtUF72asNfkZ+PPi5PjfmurphxIaU=
 github.com/nhatthm/n26prompt v0.1.7 h1:EqFqwKV9VzApaJSGeYN3c3CBmwmOMxIPkax9LKEmArw=
 github.com/nhatthm/n26prompt v0.1.7/go.mod h1:9rG3h2sHFk7HNDKuFYkr7mCr6+a/jUv2AVBoR+LzF9k=
+github.com/nhatthm/surveyexpect v0.1.1 h1:exus8zJJGqpRoOU3Y1G+q9+10MT91+oAnl2fcsWirPE=
+github.com/nhatthm/surveyexpect v0.1.1/go.mod h1:KlX6gIkfmduh8f6WP1FyAbJHOzj0nGLgOJ/3gjDLu2A=
 github.com/nhatthm/surveymock v0.3.15 h1:gvyt0Ylho1TcSDsMKgZwgZM/kf4jkkOfM9Eoz8R4diI=
 github.com/nhatthm/surveymock v0.3.15/go.mod h1:F07H+/DzCasxuHgXSQf3JgaKkuC0PA3+hT1u8qFFjWw=
 github.com/nxadm/tail v1.4.4/go.mod h1:kenIhsEOeOJmVchQTgglprH7qJGnHDVpk1VPCcaMI8A=

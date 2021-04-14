@@ -3,8 +3,8 @@ package configurator
 import (
 	"github.com/AlecAivazis/survey/v2/terminal"
 
-	"github.com/nhatthm/surveymock/options"
-	"github.com/nhatthm/surveymock/options/cobra"
+	"github.com/nhatthm/surveyexpect/options"
+	"github.com/nhatthm/surveyexpect/options/cobra"
 )
 
 // WithStdio configures stdio for prompt.

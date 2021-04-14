@@ -16,7 +16,7 @@ require (
 	github.com/nhatthm/n26api v0.2.7
 	github.com/nhatthm/n26keychain v0.3.3
 	github.com/nhatthm/n26prompt v0.1.7
-	github.com/nhatthm/surveymock v0.3.15
+	github.com/nhatthm/surveyexpect v0.1.1
 	github.com/pelletier/go-toml v1.9.0 // indirect
 	github.com/spf13/afero v1.6.0
 	github.com/spf13/cast v1.3.1 // indirect

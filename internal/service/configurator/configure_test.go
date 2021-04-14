@@ -13,7 +13,7 @@ import (
 	"github.com/google/uuid"
 	keychainCredentialsMock "github.com/nhatthm/n26keychain/credentials/mock"
 	keychainTokenMock "github.com/nhatthm/n26keychain/token/mock"
-	"github.com/nhatthm/surveymock"
+	"github.com/nhatthm/surveyexpect"
 	"github.com/spf13/viper"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -51,7 +51,7 @@ func TestPromptConfigurator_Configure(t *testing.T) {
 		scenario                string
 		mockKeychainCredentials keychainCredentialsMock.Mocker
 		mockKeychainStorage     keychainTokenMock.Mocker
-		mockSurvey              surveymock.Mocker
+		expectSurvey            surveyexpect.Expector
 		oldCfg                  *service.Config
 		expectConfigFile        bool
 		assertDevice            func(t *testing.T, device uuid.UUID)
@@ -60,7 +60,7 @@ func TestPromptConfigurator_Configure(t *testing.T) {
 	}{
 		{
 			scenario: "not configured before, no use keychain",
-			mockSurvey: surveymock.Mock(func(s *surveymock.Survey) {
+			expectSurvey: surveyexpect.Expect(func(s *surveyexpect.Survey) {
 				s.ExpectConfirm("Do you want to save your credentials to system keychain? (y/N)").No()
 			}),
 			expectConfigFile: true,
@@ -70,7 +70,7 @@ func TestPromptConfigurator_Configure(t *testing.T) {
 			mockKeychainCredentials: keychainCredentialsMock.Mock(func(p *keychainCredentialsMock.KeychainCredentials) {
 				p.On("Update", "", "").Return(nil)
 			}),
-			mockSurvey: surveymock.Mock(func(s *surveymock.Survey) {
+			expectSurvey: surveyexpect.Expect(func(s *surveyexpect.Survey) {
 				s.ExpectConfirm("Do you want to save your credentials to system keychain? (y/N)").Yes()
 				s.ExpectPassword("Enter username (input is hidden, leave it empty if no change) >")
 				s.ExpectPassword("Enter password (input is hidden, leave it empty if no change) >")
@@ -80,7 +80,7 @@ func TestPromptConfigurator_Configure(t *testing.T) {
 		},
 		{
 			scenario: "no change device id, no use keychain",
-			mockSurvey: surveymock.Mock(func(s *surveymock.Survey) {
+			expectSurvey: surveyexpect.Expect(func(s *surveyexpect.Survey) {
 				s.ExpectConfirm("Do you want to generate a new device id? (y/N)").No()
 				s.ExpectConfirm("Do you want to save your credentials to system keychain? (y/N)").No()
 			}),
@@ -90,7 +90,7 @@ func TestPromptConfigurator_Configure(t *testing.T) {
 		},
 		{
 			scenario: "change device id, no use keychain",
-			mockSurvey: surveymock.Mock(func(s *surveymock.Survey) {
+			expectSurvey: surveyexpect.Expect(func(s *surveyexpect.Survey) {
 				s.ExpectConfirm("Do you want to generate a new device id? (y/N)").Yes()
 				s.ExpectConfirm("Do you want to save your credentials to system keychain? (y/N)").No()
 			}),
@@ -110,7 +110,7 @@ func TestPromptConfigurator_Configure(t *testing.T) {
 				s.On("Delete", context.Background(), fmt.Sprintf(":%s", oldDevice.String())).
 					Return(nil)
 			}),
-			mockSurvey: surveymock.Mock(func(s *surveymock.Survey) {
+			expectSurvey: surveyexpect.Expect(func(s *surveyexpect.Survey) {
 				s.ExpectConfirm("Do you want to generate a new device id? (y/N)").No()
 				s.ExpectConfirm("Do you want to save your credentials to system keychain? (Y/n)").No()
 			}),
@@ -130,7 +130,7 @@ func TestPromptConfigurator_Configure(t *testing.T) {
 				s.On("Delete", context.Background(), fmt.Sprintf(":%s", oldDevice.String())).
 					Return(nil)
 			}),
-			mockSurvey: surveymock.Mock(func(s *surveymock.Survey) {
+			expectSurvey: surveyexpect.Expect(func(s *surveyexpect.Survey) {
 				s.WithTimeout(time.Hour)
 				s.ExpectConfirm("Do you want to generate a new device id? (y/N)").Yes()
 				s.ExpectConfirm("Do you want to save your credentials to system keychain? (Y/n)").Yes()
@@ -147,7 +147,7 @@ func TestPromptConfigurator_Configure(t *testing.T) {
 			mockKeychainCredentials: keychainCredentialsMock.Mock(func(p *keychainCredentialsMock.KeychainCredentials) {
 				p.On("Update", "username", "password").Return(nil)
 			}),
-			mockSurvey: surveymock.Mock(func(s *surveymock.Survey) {
+			expectSurvey: surveyexpect.Expect(func(s *surveyexpect.Survey) {
 				s.ExpectConfirm("Do you want to generate a new device id? (y/N)").No()
 				s.ExpectConfirm("Do you want to save your credentials to system keychain? (y/N)").Yes()
 				s.ExpectPassword("Enter username (input is hidden, leave it empty if no change) >").
@@ -172,7 +172,7 @@ func TestPromptConfigurator_Configure(t *testing.T) {
 				s.On("Delete", context.Background(), fmt.Sprintf("username:%s", oldDevice.String())).
 					Return(nil)
 			}),
-			mockSurvey: surveymock.Mock(func(s *surveymock.Survey) {
+			expectSurvey: surveyexpect.Expect(func(s *surveyexpect.Survey) {
 				s.ExpectConfirm("Do you want to generate a new device id? (y/N)").No()
 				s.ExpectConfirm("Do you want to save your credentials to system keychain? (Y/n)").Yes()
 				s.ExpectPassword("Enter username (input is hidden, leave it empty if no change) >").
@@ -196,7 +196,7 @@ func TestPromptConfigurator_Configure(t *testing.T) {
 				s.On("Delete", context.Background(), fmt.Sprintf("username:%s", oldDevice.String())).
 					Return(nil)
 			}),
-			mockSurvey: surveymock.Mock(func(s *surveymock.Survey) {
+			expectSurvey: surveyexpect.Expect(func(s *surveyexpect.Survey) {
 				s.ExpectConfirm("Do you want to generate a new device id? (y/N)").No()
 				s.ExpectConfirm("Do you want to save your credentials to system keychain? (Y/n)").Yes()
 				s.ExpectPassword("Enter username (input is hidden, leave it empty if no change) >").
@@ -217,7 +217,7 @@ func TestPromptConfigurator_Configure(t *testing.T) {
 				p.On("Password").Return("password")
 				p.On("Update", "username", "password").Return(nil)
 			}),
-			mockSurvey: surveymock.Mock(func(s *surveymock.Survey) {
+			expectSurvey: surveyexpect.Expect(func(s *surveyexpect.Survey) {
 				s.ExpectConfirm("Do you want to generate a new device id? (y/N)").No()
 				s.ExpectConfirm("Do you want to save your credentials to system keychain? (Y/n)").Yes()
 				s.ExpectPassword("Enter username (input is hidden, leave it empty if no change) >")
@@ -230,7 +230,7 @@ func TestPromptConfigurator_Configure(t *testing.T) {
 		},
 		{
 			scenario: "interrupt at changing id",
-			mockSurvey: surveymock.Mock(func(s *surveymock.Survey) {
+			expectSurvey: surveyexpect.Expect(func(s *surveyexpect.Survey) {
 				s.ExpectConfirm("Do you want to generate a new device id? (y/N)").Interrupt()
 			}),
 			oldCfg: config(oldDevice, "", "", ""),
@@ -241,20 +241,20 @@ func TestPromptConfigurator_Configure(t *testing.T) {
 		},
 		{
 			scenario: "not configured, interrupt at setting credentials provider",
-			mockSurvey: surveymock.Mock(func(s *surveymock.Survey) {
+			expectSurvey: surveyexpect.Expect(func(s *surveyexpect.Survey) {
 				s.ExpectConfirm("Do you want to save your credentials to system keychain? (y/N)").Interrupt()
 			}),
 		},
 		{
 			scenario: "not configured, interrupt at setting username",
-			mockSurvey: surveymock.Mock(func(s *surveymock.Survey) {
+			expectSurvey: surveyexpect.Expect(func(s *surveyexpect.Survey) {
 				s.ExpectConfirm("Do you want to save your credentials to system keychain? (y/N)").Yes()
 				s.ExpectPassword("Enter username (input is hidden, leave it empty if no change) >").Interrupt()
 			}),
 		},
 		{
 			scenario: "not configured, interrupt at setting password",
-			mockSurvey: surveymock.Mock(func(s *surveymock.Survey) {
+			expectSurvey: surveyexpect.Expect(func(s *surveyexpect.Survey) {
 				s.ExpectConfirm("Do you want to save your credentials to system keychain? (y/N)").Yes()
 				s.ExpectPassword("Enter username (input is hidden, leave it empty if no change) >")
 				s.ExpectPassword("Enter password (input is hidden, leave it empty if no change) >").Interrupt()
@@ -262,7 +262,7 @@ func TestPromptConfigurator_Configure(t *testing.T) {
 		},
 		{
 			scenario: "configured, interrupt at setting credentials provider",
-			mockSurvey: surveymock.Mock(func(s *surveymock.Survey) {
+			expectSurvey: surveyexpect.Expect(func(s *surveyexpect.Survey) {
 				s.ExpectConfirm("Do you want to generate a new device id? (y/N)").No()
 				s.ExpectConfirm("Do you want to save your credentials to system keychain? (y/N)").Interrupt()
 			}),
@@ -279,7 +279,7 @@ func TestPromptConfigurator_Configure(t *testing.T) {
 				p.On("Username").Return("username")
 				p.On("Password").Return("password")
 			}),
-			mockSurvey: surveymock.Mock(func(s *surveymock.Survey) {
+			expectSurvey: surveyexpect.Expect(func(s *surveyexpect.Survey) {
 				s.ExpectConfirm("Do you want to generate a new device id? (y/N)").No()
 				s.ExpectConfirm("Do you want to save your credentials to system keychain? (Y/n)").Interrupt()
 			}),
@@ -296,7 +296,7 @@ func TestPromptConfigurator_Configure(t *testing.T) {
 				p.On("Username").Return("username")
 				p.On("Password").Return("password")
 			}),
-			mockSurvey: surveymock.Mock(func(s *surveymock.Survey) {
+			expectSurvey: surveyexpect.Expect(func(s *surveyexpect.Survey) {
 				s.ExpectConfirm("Do you want to generate a new device id? (y/N)").No()
 				s.ExpectConfirm("Do you want to save your credentials to system keychain? (Y/n)").Yes()
 				s.ExpectPassword("Enter username (input is hidden, leave it empty if no change) >").Interrupt()
@@ -315,7 +315,7 @@ func TestPromptConfigurator_Configure(t *testing.T) {
 				p.On("Password").Return("password")
 				// No call to storage to ask to update because the configurator is interrupted.
 			}),
-			mockSurvey: surveymock.Mock(func(s *surveymock.Survey) {
+			expectSurvey: surveyexpect.Expect(func(s *surveyexpect.Survey) {
 				s.ExpectConfirm("Do you want to generate a new device id? (y/N)").No()
 				s.ExpectConfirm("Do you want to save your credentials to system keychain? (Y/n)").Yes()
 				s.ExpectPassword("Enter username (input is hidden, leave it empty if no change) >").Answer("foobar")
@@ -332,7 +332,7 @@ func TestPromptConfigurator_Configure(t *testing.T) {
 			mockKeychainCredentials: keychainCredentialsMock.Mock(func(p *keychainCredentialsMock.KeychainCredentials) {
 				p.On("Update", "username", "password").Return(errors.New("save keychain error"))
 			}),
-			mockSurvey: surveymock.Mock(func(s *surveymock.Survey) {
+			expectSurvey: surveyexpect.Expect(func(s *surveyexpect.Survey) {
 				s.ExpectConfirm("Do you want to save your credentials to system keychain? (y/N)").Yes()
 				s.ExpectPassword("Enter username (input is hidden, leave it empty if no change) >").Answer("username")
 				s.ExpectPassword("Enter password (input is hidden, leave it empty if no change) >").Answer("password")
@@ -348,7 +348,7 @@ func TestPromptConfigurator_Configure(t *testing.T) {
 				p.On("Delete").Return(errors.New("delete credentials error"))
 				// No call to storage to ask to update because the configurator is interrupted.
 			}),
-			mockSurvey: surveymock.Mock(func(s *surveymock.Survey) {
+			expectSurvey: surveyexpect.Expect(func(s *surveyexpect.Survey) {
 				s.ExpectConfirm("Do you want to generate a new device id? (y/N)").No()
 				s.ExpectConfirm("Do you want to save your credentials to system keychain? (Y/n)").No()
 			}),
@@ -372,7 +372,7 @@ func TestPromptConfigurator_Configure(t *testing.T) {
 				s.On("Delete", context.Background(), fmt.Sprintf("username:%s", oldDevice.String())).
 					Return(errors.New("delete token error"))
 			}),
-			mockSurvey: surveymock.Mock(func(s *surveymock.Survey) {
+			expectSurvey: surveyexpect.Expect(func(s *surveyexpect.Survey) {
 				s.ExpectConfirm("Do you want to generate a new device id? (y/N)").No()
 				s.ExpectConfirm("Do you want to save your credentials to system keychain? (Y/n)").No()
 			}),
@@ -434,7 +434,7 @@ func TestPromptConfigurator_Configure(t *testing.T) {
 				assert.Equal(t, tc.expectedCredentials, provider)
 			}
 
-			tc.mockSurvey(t).Start(func(stdio terminal.Stdio) {
+			tc.expectSurvey(t).Start(func(stdio terminal.Stdio) {
 				configFile := filepath.Join(t.TempDir(), "config.toml")
 				c := New(configFile,
 					WithStdio(stdio),

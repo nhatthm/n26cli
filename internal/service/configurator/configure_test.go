@@ -21,6 +21,11 @@ import (
 	"github.com/nhatthm/n26cli/internal/service"
 )
 
+// nolint: gochecknoinits
+func init() {
+	surveyexpect.ReactionTime = 10 * time.Millisecond
+}
+
 func config(
 	device uuid.UUID,
 	credentialsProvider service.CredentialsProviderType,

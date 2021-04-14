@@ -8,6 +8,7 @@ require (
 	github.com/bool64/zapctxd v0.1.3
 	github.com/gocarina/gocsv v0.0.0-20210408192840-02d7211d929d
 	github.com/google/uuid v1.2.0
+	github.com/kr/text v0.2.0 // indirect
 	github.com/magiconair/properties v1.8.5 // indirect
 	github.com/mitchellh/mapstructure v1.4.1
 	github.com/nhatthm/aferomock v0.1.0
@@ -15,7 +16,7 @@ require (
 	github.com/nhatthm/n26aas v0.1.2
 	github.com/nhatthm/n26api v0.2.7
 	github.com/nhatthm/n26keychain v0.3.3
-	github.com/nhatthm/n26prompt v0.1.7
+	github.com/nhatthm/n26prompt v0.2.1
 	github.com/nhatthm/surveyexpect v0.1.1
 	github.com/pelletier/go-toml v1.9.0 // indirect
 	github.com/spf13/afero v1.6.0
@@ -26,5 +27,6 @@ require (
 	github.com/stretchr/testify v1.7.0
 	go.uber.org/multierr v1.6.0 // indirect
 	go.uber.org/zap v1.16.0
+	gopkg.in/check.v1 v1.0.0-20201130134442-10cb98267c6c // indirect
 	gopkg.in/ini.v1 v1.62.0 // indirect
 )

@@ -26,7 +26,9 @@ func MakeServiceLocator(l *service.Locator) error {
 	initLogger(l)
 	initFormatter(l)
 
-	l.ClockProvider = clock.New()
+	if l.ClockProvider == nil {
+		l.ClockProvider = clock.New()
+	}
 
 	client, err := initN26Client(l.Config.N26, l.Clock(), l.CtxdLogger())
 	if err != nil {

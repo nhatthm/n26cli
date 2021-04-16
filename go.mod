@@ -12,12 +12,13 @@ require (
 	github.com/magiconair/properties v1.8.5 // indirect
 	github.com/mitchellh/mapstructure v1.4.1
 	github.com/nhatthm/aferomock v0.2.0
-	github.com/nhatthm/go-clock v0.5.0
+	github.com/nhatthm/go-clock v0.6.0
 	github.com/nhatthm/n26aas v0.2.0
-	github.com/nhatthm/n26api v0.3.0
+	github.com/nhatthm/n26api v0.3.2
 	github.com/nhatthm/n26keychain v0.4.0
 	github.com/nhatthm/n26prompt v0.3.0
 	github.com/nhatthm/surveyexpect v0.3.0
+	github.com/nhatthm/timeparser v0.1.0
 	github.com/pelletier/go-toml v1.9.0 // indirect
 	github.com/spf13/afero v1.6.0
 	github.com/spf13/cast v1.3.1 // indirect
@@ -27,6 +28,8 @@ require (
 	github.com/stretchr/testify v1.7.0
 	go.uber.org/multierr v1.6.0 // indirect
 	go.uber.org/zap v1.16.0
+	golang.org/x/crypto v0.0.0-20210415154028-4f45737414dc // indirect
+	golang.org/x/sys v0.0.0-20210415045647-66c3f260301c // indirect
 	gopkg.in/check.v1 v1.0.0-20201130134442-10cb98267c6c // indirect
 	gopkg.in/ini.v1 v1.62.0 // indirect
 )

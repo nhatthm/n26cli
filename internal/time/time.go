@@ -1,46 +1,29 @@
 package time
 
 import (
-	"errors"
 	"time"
 
-	"github.com/nhatthm/n26cli/internal/parser"
+	"github.com/nhatthm/timeparser"
 )
 
-// ErrInvalidTimePeriod indicates that the time input is invalid.
-var ErrInvalidTimePeriod = errors.New("invalid time period")
-
 // Period returns a time period from given input.
-func Period(now time.Time, from, to string) (start time.Time, end time.Time, err error) {
-	if from == "" && to == "" {
+func Period(now time.Time, from, to string) (time.Time, time.Time, error) {
+	s, e, err := timeparser.ParsePeriod(from, to)
+	if err != nil {
+		return time.Time{}, time.Time{}, err
+	}
+
+	if s == nil && e == nil {
 		return now.AddDate(0, 0, -1), now, nil
 	}
 
-	if from != "" {
-		start, err = parser.DateTime(from)
-		if err != nil {
-			return time.Time{}, time.Time{}, err
-		}
+	if s == nil {
+		return e.AddDate(0, 0, -1), *e, nil
 	}
 
-	if to != "" {
-		end, err = parser.DateTime(to)
-		if err != nil {
-			return time.Time{}, time.Time{}, err
-		}
+	if e == nil {
+		return *s, s.AddDate(0, 0, 1), nil
 	}
 
-	if from == "" {
-		return end.AddDate(0, 0, -1), end, nil
-	}
-
-	if to == "" {
-		return start, start.AddDate(0, 0, 1), nil
-	}
-
-	if start.After(end) {
-		return time.Time{}, time.Time{}, ErrInvalidTimePeriod
-	}
-
-	return start, end, nil
+	return *s, *e, nil
 }

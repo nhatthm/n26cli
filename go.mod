@@ -11,13 +11,13 @@ require (
 	github.com/kr/text v0.2.0 // indirect
 	github.com/magiconair/properties v1.8.5 // indirect
 	github.com/mitchellh/mapstructure v1.4.1
-	github.com/nhatthm/aferomock v0.1.0
-	github.com/nhatthm/go-clock v0.3.0
-	github.com/nhatthm/n26aas v0.1.2
-	github.com/nhatthm/n26api v0.2.7
-	github.com/nhatthm/n26keychain v0.3.3
-	github.com/nhatthm/n26prompt v0.2.1
-	github.com/nhatthm/surveyexpect v0.1.1
+	github.com/nhatthm/aferomock v0.2.0
+	github.com/nhatthm/go-clock v0.5.0
+	github.com/nhatthm/n26aas v0.2.0
+	github.com/nhatthm/n26api v0.3.0
+	github.com/nhatthm/n26keychain v0.4.0
+	github.com/nhatthm/n26prompt v0.3.0
+	github.com/nhatthm/surveyexpect v0.3.0
 	github.com/pelletier/go-toml v1.9.0 // indirect
 	github.com/spf13/afero v1.6.0
 	github.com/spf13/cast v1.3.1 // indirect

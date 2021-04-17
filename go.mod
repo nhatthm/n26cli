@@ -14,11 +14,11 @@ require (
 	github.com/nhatthm/aferomock v0.2.0
 	github.com/nhatthm/go-clock v0.6.0
 	github.com/nhatthm/n26aas v0.2.0
-	github.com/nhatthm/n26api v0.3.2
+	github.com/nhatthm/n26api v0.3.3
 	github.com/nhatthm/n26keychain v0.4.0
 	github.com/nhatthm/n26prompt v0.3.0
 	github.com/nhatthm/surveyexpect v0.3.0
-	github.com/nhatthm/timeparser v0.1.0
+	github.com/nhatthm/timeparser v0.2.0
 	github.com/pelletier/go-toml v1.9.0 // indirect
 	github.com/spf13/afero v1.6.0
 	github.com/spf13/cast v1.3.1 // indirect

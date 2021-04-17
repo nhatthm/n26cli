@@ -1,7 +1,6 @@
 package cli
 
 import (
-	"os/user"
 	"path/filepath"
 
 	"github.com/spf13/cobra"
@@ -11,10 +10,12 @@ import (
 	"github.com/nhatthm/n26cli/internal/service"
 )
 
-var rootCfg = defaultConfig()
+var rootCfg globalConfig
 
 // NewApp creates a new cli application using cobra.Command.
-func NewApp(l *service.Locator) *cobra.Command {
+func NewApp(l *service.Locator, homeDir string) *cobra.Command {
+	rootCfg = defaultConfig(homeDir)
+
 	root := &cobra.Command{
 		Use:   "n26",
 		Short: "n26 command-line interface",
@@ -34,13 +35,8 @@ func NewApp(l *service.Locator) *cobra.Command {
 	return root
 }
 
-func defaultConfig() globalConfig {
-	usr, err := user.Current()
-	if err != nil {
-		panic(err)
-	}
-
+func defaultConfig(homeDir string) globalConfig {
 	return globalConfig{
-		ConfigFile: filepath.Join(usr.HomeDir, ".n26/config.toml"),
+		ConfigFile: filepath.Join(homeDir, "config.toml"),
 	}
 }

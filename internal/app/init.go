@@ -26,6 +26,7 @@ func NewServiceLocator() *service.Locator {
 	l := &service.Locator{}
 
 	l.StdioProvider = io.DefaultStdio()
+	l.N26.BaseURL = n26api.BaseURL
 	l.N26.MFATimeout = 2 * time.Minute
 
 	return l
@@ -78,10 +79,6 @@ func initN26Client(l *service.Locator, cfg service.N26Config) (*n26aas.Service, 
 	credOption, err := getCredentialsProviderOption(cfg, l.CtxdLogger())
 	if err != nil {
 		return nil, err
-	}
-
-	if cfg.BaseURL == "" {
-		cfg.BaseURL = n26api.BaseURL
 	}
 
 	c := n26aas.New(cfg.Device,

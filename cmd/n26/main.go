@@ -5,8 +5,8 @@ import (
 	"os"
 	"os/user"
 
+	"github.com/nhatthm/n26cli/internal/app"
 	"github.com/nhatthm/n26cli/internal/cli"
-	"github.com/nhatthm/n26cli/internal/service"
 )
 
 func main() {
@@ -15,7 +15,7 @@ func main() {
 		panic(err)
 	}
 
-	l := &service.Locator{}
+	l := app.NewServiceLocator()
 
 	if err := cli.NewApp(l, usr.HomeDir).Execute(); err != nil {
 		fmt.Println(err)

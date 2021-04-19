@@ -1,6 +1,8 @@
 package service
 
 import (
+	"time"
+
 	"github.com/bool64/zapctxd"
 	"github.com/google/uuid"
 )
@@ -31,10 +33,13 @@ type Config struct {
 
 // N26Config represents configuration for N26 Client.
 type N26Config struct {
+	BaseURL             string
 	Username            string
 	Password            string
 	Device              uuid.UUID
 	CredentialsProvider CredentialsProviderType `toml:"credentials"`
+	MFAWait             time.Duration
+	MFATimeout          time.Duration
 }
 
 // CredentialsProviderType indicates the type of a credentials provider.

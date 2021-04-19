@@ -21,6 +21,16 @@ import (
 // ErrUnsupportedCredentialsProvider indicates that the provided credentials provider is not supported.
 var ErrUnsupportedCredentialsProvider = errors.New("unsupported credentials provider")
 
+// NewServiceLocator initiates a new *service.Locator.
+func NewServiceLocator() *service.Locator {
+	l := &service.Locator{}
+
+	l.StdioProvider = io.DefaultStdio()
+	l.N26.MFATimeout = 2 * time.Minute
+
+	return l
+}
+
 // MakeServiceLocator creates application service locator.
 func MakeServiceLocator(l *service.Locator) error {
 	initLogger(l)
@@ -30,7 +40,7 @@ func MakeServiceLocator(l *service.Locator) error {
 		l.ClockProvider = clock.New()
 	}
 
-	client, err := initN26Client(l.Config.N26, l.Clock(), l.CtxdLogger())
+	client, err := initN26Client(l, l.Config.N26)
 	if err != nil {
 		return err
 	}
@@ -64,19 +74,28 @@ func initFormatter(l *service.Locator) {
 	}
 }
 
-func initN26Client(cfg service.N26Config, clock clock.Clock, logger ctxd.Logger) (*n26aas.Service, error) {
-	credOption, err := getCredentialsProviderOption(cfg, logger)
+func initN26Client(l *service.Locator, cfg service.N26Config) (*n26aas.Service, error) {
+	credOption, err := getCredentialsProviderOption(cfg, l.CtxdLogger())
 	if err != nil {
 		return nil, err
 	}
 
+	if cfg.BaseURL == "" {
+		cfg.BaseURL = n26api.BaseURL
+	}
+
 	c := n26aas.New(cfg.Device,
+		n26api.WithBaseURL(cfg.BaseURL),
 		n26api.WithCredentials(cfg.Username, cfg.Password),
 		credOption,
-		prompt.WithCredentialsAtLast(prompt.WithLogger(logger)),
+		prompt.WithCredentialsAtLast(
+			prompt.WithStdioProvider(l.StdioProvider),
+			prompt.WithLogger(l.CtxdLogger()),
+		),
 		token.WithTokenStorage(),
-		n26api.WithClock(clock),
-		n26api.WithMFATimeout(2*time.Minute),
+		n26api.WithClock(l.Clock()),
+		n26api.WithMFAWait(cfg.MFAWait),
+		n26api.WithMFATimeout(cfg.MFATimeout),
 	)
 
 	return c, nil

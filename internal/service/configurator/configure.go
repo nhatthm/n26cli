@@ -20,7 +20,7 @@ func (c *PromptConfigurator) Configure() (err error) {
 
 	defer func() {
 		if err == nil {
-			fmt.Printf("\nsaved\n")
+			_, _ = fmt.Fprintf(c.stdout, "\nsaved\n")
 
 			return
 		}
@@ -28,7 +28,7 @@ func (c *PromptConfigurator) Configure() (err error) {
 		if errors.Is(err, terminal.InterruptErr) {
 			err = nil
 
-			fmt.Printf("\nno change\n")
+			_, _ = fmt.Fprintf(c.stdout, "\nno change\n")
 
 			return
 		}

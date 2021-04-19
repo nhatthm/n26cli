@@ -7,7 +7,6 @@ import (
 
 	"github.com/nhatthm/n26cli/internal/app"
 	"github.com/nhatthm/n26cli/internal/fmt"
-	"github.com/nhatthm/n26cli/internal/io"
 	"github.com/nhatthm/n26cli/internal/service"
 	"github.com/nhatthm/n26cli/internal/service/configurator"
 )
@@ -17,6 +16,10 @@ func newAPICommand(l *service.Locator, newCommand func(l *service.Locator) *cobr
 	var apiCfg apiConfig
 
 	cmd := newCommand(l)
+
+	cmd.SetIn(l.InOrStdin())
+	cmd.SetOut(l.OutOrStdout())
+	cmd.SetErr(l.ErrOrStderr())
 
 	cmd.Flags().StringVarP(&apiCfg.Username, "username", "u", "", "n26 username")
 	cmd.Flags().StringVarP(&apiCfg.Password, "password", "p", "", "n26 password")
@@ -31,7 +34,7 @@ func newAPICommand(l *service.Locator, newCommand func(l *service.Locator) *cobr
 
 	cmd.RunE = nil
 	cmd.Run = func(cmd *cobra.Command, args []string) {
-		if err := makeLocator(l, cmd, apiCfg); err != nil {
+		if err := makeLocator(l, apiCfg); err != nil {
 			handleErr(cmd, err)
 
 			return
@@ -57,15 +60,7 @@ func runner(cmd *cobra.Command) func(cmd *cobra.Command, args []string) {
 	}
 }
 
-func makeLocator(
-	l *service.Locator,
-	io io.StdioProvider,
-	apiCfg apiConfig,
-) error {
-	if l.StdioProvider == nil {
-		l.StdioProvider = io
-	}
-
+func makeLocator(l *service.Locator, apiCfg apiConfig) error {
 	c, err := configurator.New(rootCfg.ConfigFile).SafeRead()
 	if err != nil {
 		return err
@@ -85,8 +80,11 @@ func makeLocator(
 
 	c.Log.Output = l.ErrOrStderr()
 
+	c.N26.BaseURL = l.N26.BaseURL
 	c.N26.Username = apiCfg.Username
 	c.N26.Password = apiCfg.Password
+	c.N26.MFAWait = l.N26.MFAWait
+	c.N26.MFATimeout = l.N26.MFATimeout
 
 	l.Config = c
 

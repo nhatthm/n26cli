@@ -2,6 +2,8 @@ package configurator
 
 import (
 	"errors"
+	"io"
+	"os"
 
 	"github.com/AlecAivazis/survey/v2"
 	"github.com/google/uuid"
@@ -33,6 +35,7 @@ type Configurator interface {
 type PromptConfigurator struct {
 	fs                  afero.Fs
 	viper               *viper.Viper
+	stdout              io.Writer
 	keychainCredentials keychainCredentials.KeychainCredentials
 	keychainToken       keychainToken.KeychainStorage
 
@@ -61,6 +64,7 @@ func New(configFile string, options ...Option) *PromptConfigurator {
 	c := &PromptConfigurator{
 		fs:         afero.NewOsFs(),
 		viper:      viper.New(),
+		stdout:     os.Stdout,
 		configFile: configFile,
 	}
 

@@ -10,6 +10,7 @@ import (
 // WithStdio configures stdio for prompt.
 func WithStdio(stdio terminal.Stdio) Option {
 	return func(c *PromptConfigurator) {
+		c.stdout = stdio.Out
 		c.defaultOptions = append(c.defaultOptions, options.WithStdio(stdio))
 	}
 }
@@ -17,6 +18,7 @@ func WithStdio(stdio terminal.Stdio) Option {
 // WithStdioProvider configures stdio for prompt.
 func WithStdioProvider(p cobra.StdioProvider) Option {
 	return func(c *PromptConfigurator) {
+		c.stdout = p.OutOrStdout()
 		c.defaultOptions = append(c.defaultOptions, cobra.WithStdioProvider(p))
 	}
 }

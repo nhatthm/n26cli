@@ -22,6 +22,10 @@ func NewApp(l *service.Locator, homeDir string) *cobra.Command {
 		Long:  "An awesome tool for managing your N26 account from the terminal",
 	}
 
+	root.SetIn(l.InOrStdin())
+	root.SetOut(l.OutOrStdout())
+	root.SetErr(l.ErrOrStderr())
+
 	root.PersistentFlags().StringVarP(&rootCfg.ConfigFile, "config", "c", rootCfg.ConfigFile, "configuration file")
 	root.PersistentFlags().BoolVarP(&rootCfg.Verbose, "verbose", "v", rootCfg.Verbose, "verbose output")
 	root.PersistentFlags().BoolVarP(&rootCfg.Debug, "debug", "d", rootCfg.Debug, "debug output")
@@ -37,6 +41,6 @@ func NewApp(l *service.Locator, homeDir string) *cobra.Command {
 
 func defaultConfig(homeDir string) globalConfig {
 	return globalConfig{
-		ConfigFile: filepath.Join(homeDir, "config.toml"),
+		ConfigFile: filepath.Join(homeDir, ".n26", "config.toml"),
 	}
 }

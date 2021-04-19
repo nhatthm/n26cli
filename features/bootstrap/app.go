@@ -167,7 +167,13 @@ func (m *appManager) runCommand(args []string) (err error) {
 	doneCh := make(chan struct{})
 
 	go func() {
-		defer close(doneCh)
+		defer func() {
+			if r := recover(); r != nil {
+				_, _ = fmt.Fprintf(m.stdio.Out, "panic: %s\n", r)
+			}
+
+			close(doneCh)
+		}()
 
 		err = cmd.Execute()
 	}()

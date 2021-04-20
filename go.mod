@@ -12,6 +12,7 @@ require (
 	github.com/magiconair/properties v1.8.5 // indirect
 	github.com/mitchellh/mapstructure v1.4.1
 	github.com/nhatthm/aferomock v0.2.0
+	github.com/nhatthm/clockdog v0.1.1
 	github.com/nhatthm/consoledog v0.1.4
 	github.com/nhatthm/go-clock v0.6.0
 	github.com/nhatthm/n26aas v0.2.0

@@ -104,10 +104,6 @@ func logLevel() zapcore.Level {
 }
 
 func handleErr(fmt fmt.Fmt, err error) {
-	if err == nil {
-		return
-	}
-
 	if rootCfg.Debug {
 		panic(err)
 	}

@@ -99,10 +99,6 @@ func initN26Client(l *service.Locator, cfg service.N26Config) (*n26aas.Service, 
 }
 
 func getCredentialsProviderOption(cfg service.N26Config, logger ctxd.Logger) (n26api.Option, error) {
-	if cfg.CredentialsProvider == "" {
-		return noN26ClientOption, nil
-	}
-
 	switch cfg.CredentialsProvider {
 	case service.CredentialsProviderKeychain:
 		return func(c *n26api.Client) {
@@ -110,6 +106,8 @@ func getCredentialsProviderOption(cfg service.N26Config, logger ctxd.Logger) (n2
 		}, nil
 
 	case service.CredentialsProviderNone:
+		return noN26ClientOption, nil
+
 	default:
 		return nil,
 			ctxd.WrapError(context.Background(), ErrUnsupportedCredentialsProvider,
@@ -117,8 +115,6 @@ func getCredentialsProviderOption(cfg service.N26Config, logger ctxd.Logger) (n2
 				"provider", cfg.CredentialsProvider,
 			)
 	}
-
-	return noN26ClientOption, nil
 }
 
 func noN26ClientOption(_ *n26api.Client) {

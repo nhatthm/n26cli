@@ -14,6 +14,7 @@ import (
 
 	"github.com/AlecAivazis/survey/v2/terminal"
 	"github.com/cucumber/godog"
+	"github.com/nhatthm/clockdog"
 	"github.com/nhatthm/n26cli/internal/app"
 	"github.com/nhatthm/n26cli/internal/cli"
 	"github.com/nhatthm/n26cli/internal/io"
@@ -33,6 +34,7 @@ var (
 
 type appManager struct {
 	fs    afero.Fs
+	clock *clockdog.Clock
 	stdio terminal.Stdio
 	test  *testing.T
 
@@ -151,6 +153,7 @@ func (m *appManager) runCommandArgs(params string) error {
 func (m *appManager) runCommand(args []string) (err error) {
 	l := app.NewServiceLocator()
 
+	l.ClockProvider = m.clock
 	l.StdioProvider = io.Stdio(m.stdio.In, m.stdio.Out, m.stdio.Err)
 	l.N26.BaseURL = m.baseURL
 	l.N26.MFAWait = 5 * time.Millisecond
@@ -287,9 +290,10 @@ func (m *appManager) hasCredentialsInKeychain(username, password string) error {
 	return t.LastError()
 }
 
-func newAppManager(t *testing.T, baseURL string) *appManager { // nolint: thelper
+func newAppManager(t *testing.T, baseURL string, clock *clockdog.Clock) *appManager { // nolint: thelper
 	return &appManager{
 		fs:      afero.NewOsFs(),
+		clock:   clock,
 		test:    t,
 		keys:    make(map[string][]string),
 		baseURL: baseURL,

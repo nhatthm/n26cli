@@ -7,7 +7,7 @@ import (
 
 	"github.com/bool64/ctxd"
 	"github.com/bool64/zapctxd"
-	clock "github.com/nhatthm/go-clock"
+	"github.com/nhatthm/go-clock"
 	"github.com/nhatthm/n26aas"
 	"github.com/nhatthm/n26api"
 	keychain "github.com/nhatthm/n26keychain/credentials"
@@ -25,9 +25,11 @@ var ErrUnsupportedCredentialsProvider = errors.New("unsupported credentials prov
 func NewServiceLocator() *service.Locator {
 	l := &service.Locator{}
 
+	l.ClockProvider = clock.New()
 	l.StdioProvider = io.DefaultStdio()
-	l.N26.BaseURL = n26api.BaseURL
-	l.N26.MFATimeout = 2 * time.Minute
+
+	l.Config.N26.BaseURL = n26api.BaseURL
+	l.Config.N26.MFATimeout = 2 * time.Minute
 
 	return l
 }
@@ -36,10 +38,6 @@ func NewServiceLocator() *service.Locator {
 func MakeServiceLocator(l *service.Locator) error {
 	initLogger(l)
 	initFormatter(l)
-
-	if l.ClockProvider == nil {
-		l.ClockProvider = clock.New()
-	}
 
 	client, err := initN26Client(l, l.Config.N26)
 	if err != nil {

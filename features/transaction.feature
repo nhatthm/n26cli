@@ -1,5 +1,21 @@
 Feature: Transactions
 
+    Scenario: Find all transaction in range with invalid from
+        When I run command "transactions --from foobar"
+
+        Then console output is:
+        """
+        parsing time "foobar" as "2006-01-02": cannot parse "foobar" as "2006"
+        """
+
+    Scenario: Find all transaction in range with invalid to
+        When I run command "transactions --to foobar"
+
+        Then console output is:
+        """
+        parsing time "foobar" as "2006-01-02": cannot parse "foobar" as "2006"
+        """
+
     Scenario: Find all transaction in range without username
         Given I see a password prompt "Enter username (input is hidden) >", I interrupt
 

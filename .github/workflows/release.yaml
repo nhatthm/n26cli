@@ -9,8 +9,14 @@ env:
 jobs:
   release:
     strategy:
+      fail-fast: false
       matrix:
-        os: [ ubuntu-latest, macos-latest ]
+        # with Ubuntu 18.04, python-gnomekeyring has been deprecated and deleted
+        # from the archives so we need to use ubuntu-16.04.
+        # Do not forget to update Install Dependencies (Linux) step if the version
+        # of ubuntu is changed.
+        # https://launchpad.net/ubuntu/+source/gnome-python-desktop/+publishinghistory
+        os: [ ubuntu-16.04, macos-latest ]
     runs-on: ${{ matrix.os }}
     steps:
       - name: Get release
@@ -18,6 +24,13 @@ jobs:
         uses: bruceadams/get-release@v1.2.2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install Dependencies (Linux)
+        run: |
+            sudo apt-get update
+            sudo apt-get install -y python-gnomekeyring gnome-keyring
+            dbus-launch /usr/bin/python -c "import gnomekeyring;gnomekeyring.create_sync('login', '');"
+        if: matrix.os == 'ubuntu-16.04'
 
       - name: Install Go
         uses: actions/setup-go@v2

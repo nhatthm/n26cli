@@ -29,6 +29,7 @@ func NewServiceLocator() *service.Locator {
 	l.StdioProvider = io.DefaultStdio()
 
 	l.Config.N26.BaseURL = n26api.BaseURL
+	l.Config.N26.MFAWait = 5 * time.Second
 	l.Config.N26.MFATimeout = 2 * time.Minute
 
 	return l

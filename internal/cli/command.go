@@ -79,12 +79,11 @@ func makeLocator(l *service.Locator, apiCfg apiConfig) error {
 	}
 
 	c.Log.Output = l.ErrOrStderr()
-
-	c.N26.BaseURL = l.N26.BaseURL
+	c.N26.BaseURL = l.Config.N26.BaseURL
 	c.N26.Username = apiCfg.Username
 	c.N26.Password = apiCfg.Password
-	c.N26.MFAWait = l.N26.MFAWait
-	c.N26.MFATimeout = l.N26.MFATimeout
+	c.N26.MFAWait = l.Config.N26.MFAWait
+	c.N26.MFATimeout = l.Config.N26.MFATimeout
 
 	l.Config = c
 

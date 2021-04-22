@@ -16,28 +16,6 @@ Feature: Transactions
         parsing time "foobar" as "2006-01-02": cannot parse "foobar" as "2006"
         """
 
-    Scenario: Find all transaction in range without username
-        Given I see a password prompt "Enter username (input is hidden) >", I interrupt
-
-        When I run command "transactions -v"
-
-        Then console output is:
-        """
-        ? Enter username (input is hidden) >
-        could not find transactions: could not get token: missing username
-        """
-
-    Scenario: Find all transaction in range without username (debug)
-        Given I see a password prompt "Enter username (input is hidden) >", I interrupt
-
-        When I run command "transactions -d"
-
-        Then console output is:
-        """
-        ? Enter username (input is hidden) >
-        panic: could not find transactions: could not get token: missing username
-        """
-
     Scenario: Find all transaction in range with config file in pretty json format
         Given I create a file ".n26/config.toml" with content:
         """

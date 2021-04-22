@@ -8,10 +8,7 @@ require (
 	github.com/bool64/zapctxd v0.1.4
 	github.com/cucumber/godog v0.11.0
 	github.com/gocarina/gocsv v0.0.0-20210408192840-02d7211d929d
-	github.com/gofrs/uuid v4.0.0+incompatible // indirect
-	github.com/gogo/protobuf v1.3.2 // indirect
 	github.com/google/uuid v1.2.0
-	github.com/hashicorp/go-memdb v1.3.2 // indirect
 	github.com/magiconair/properties v1.8.5 // indirect
 	github.com/mitchellh/mapstructure v1.4.1
 	github.com/nhatthm/aferomock v0.2.0
@@ -22,9 +19,9 @@ require (
 	github.com/nhatthm/n26api v0.3.3
 	github.com/nhatthm/n26godog v0.1.1
 	github.com/nhatthm/n26keychain v0.4.0
-	github.com/nhatthm/n26prompt v0.3.0
-	github.com/nhatthm/surveydog v0.4.0
-	github.com/nhatthm/surveyexpect v0.4.0
+	github.com/nhatthm/n26prompt v0.3.2
+	github.com/nhatthm/surveydog v0.5.0
+	github.com/nhatthm/surveyexpect v0.5.0
 	github.com/nhatthm/timeparser v0.2.0
 	github.com/pelletier/go-toml v1.9.0 // indirect
 	github.com/spf13/afero v1.6.0
@@ -37,6 +34,5 @@ require (
 	github.com/zalando/go-keyring v0.1.1
 	go.uber.org/multierr v1.6.0 // indirect
 	go.uber.org/zap v1.16.0
-	golang.org/x/sys v0.0.0-20210420205809-ac73e9fd8988 // indirect
 	gopkg.in/ini.v1 v1.62.0 // indirect
 )

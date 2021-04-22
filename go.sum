@@ -223,8 +223,9 @@ github.com/nhatthm/aferomock v0.2.0 h1:OT4zsNmQngj32/ANddot5C2h3S10NUFlwh3AOTwoy
 github.com/nhatthm/aferomock v0.2.0/go.mod h1:/oTcy0NDM+qQJEEOWiuiKuogilXvv/KZcdaXaP/rX3g=
 github.com/nhatthm/clockdog v0.1.2 h1:AifmhpmnROyxNyEdK+Nng0Atjoc7Hpa7jWOTncVc0dk=
 github.com/nhatthm/clockdog v0.1.2/go.mod h1:v/tGXeZI4/l/e52V+8tICDzn+Sv3EYH2a0if8eJ7LlM=
-github.com/nhatthm/consoledog v0.1.5 h1:7aXwbr7Ni/IJ9FNeugJxXswbU15Ouw3KQJ23xeInaSs=
 github.com/nhatthm/consoledog v0.1.5/go.mod h1:iH2ApBj2X0goodl+j17oU666tFrZFK+euBHUln5Y2Bw=
+github.com/nhatthm/consoledog v0.1.6 h1:jSLZkmq4L4of7UIDHWu5O2N/4aMb10qeWozSAVpZeeE=
+github.com/nhatthm/consoledog v0.1.6/go.mod h1:iH2ApBj2X0goodl+j17oU666tFrZFK+euBHUln5Y2Bw=
 github.com/nhatthm/go-clock v0.6.0 h1:R8I8slcnValPDdM4Cd3Tk3JSSDnZk3nPuLzzPFInYtU=
 github.com/nhatthm/go-clock v0.6.0/go.mod h1:KASu97ux5p0fpVsazI4sGJN+HlzeobKsvEtjaFQUXjc=
 github.com/nhatthm/httpmock v0.5.3 h1:ihqVs94sTcFQ4TErOO3+Jxd4HBoxeg6nVQ6r/MgcoP4=

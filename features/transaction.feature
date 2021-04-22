@@ -61,6 +61,7 @@ Feature: Transactions
 
         Then console output is:
         """
+        [
             {
                 "id": "801d35f4-f550-446a-974a-0d5dc2c1f55d",
                 "userId": "7e3f710b-349d-4203-9c5d-cfbc716e1b8e",

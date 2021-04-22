@@ -13,7 +13,7 @@ require (
 	github.com/mitchellh/mapstructure v1.4.1
 	github.com/nhatthm/aferomock v0.2.0
 	github.com/nhatthm/clockdog v0.1.2
-	github.com/nhatthm/consoledog v0.1.5
+	github.com/nhatthm/consoledog v0.1.6
 	github.com/nhatthm/go-clock v0.6.0
 	github.com/nhatthm/n26aas v0.2.1
 	github.com/nhatthm/n26api v0.3.4

@@ -65,7 +65,7 @@ func TestPromptConfigurator_Write_Error(t *testing.T) {
 		t.Run(tc.scenario, func(t *testing.T) {
 			t.Parallel()
 
-			c := New("path/config.toml", withFileSystem(tc.mockFs(t)))
+			c := New("path/config.toml", WithFileSystem(tc.mockFs(t)))
 			err := c.Write(service.Config{})
 
 			assert.EqualError(t, err, tc.expectedError)

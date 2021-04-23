@@ -65,7 +65,13 @@ func runner(cmd *cobra.Command) func(cmd *cobra.Command, args []string) {
 }
 
 func makeLocator(l *service.Locator, cliCfg service.Config) error {
-	fileCfg, err := configurator.New(rootCfg.ConfigFile).SafeRead()
+	l.ConfiguratorProvider = configurator.New(
+		rootCfg.ConfigFile,
+		configurator.WithStdioProvider(l),
+		configurator.WithFileSystem(l.Fs),
+	)
+
+	fileCfg, err := l.Configurator().SafeRead()
 	if err != nil {
 		return err
 	}

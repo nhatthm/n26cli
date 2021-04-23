@@ -32,7 +32,7 @@ func NewApp(l *service.Locator, homeDir string) *cobra.Command {
 
 	root.AddCommand(
 		newAPICommand(l, transaction.NewTransactions),
-		command.NewConfig(),
+		newAPICommand(l, command.NewConfig),
 		command.NewVersion(),
 	)
 

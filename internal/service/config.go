@@ -44,3 +44,11 @@ type N26Config struct {
 
 // CredentialsProviderType indicates the type of a credentials provider.
 type CredentialsProviderType string
+
+// Configurator manages application configuration.
+type Configurator interface {
+	Configure() error
+	SafeRead() (Config, error)
+	Read() (Config, error)
+	Write(cfg Config) error
+}

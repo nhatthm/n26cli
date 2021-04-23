@@ -13,6 +13,7 @@ import (
 	keychain "github.com/nhatthm/n26keychain/credentials"
 	"github.com/nhatthm/n26keychain/token"
 	prompt "github.com/nhatthm/n26prompt/credentials"
+	"github.com/spf13/afero"
 
 	"github.com/nhatthm/n26cli/internal/io"
 	"github.com/nhatthm/n26cli/internal/service"
@@ -24,6 +25,8 @@ var ErrUnsupportedCredentialsProvider = errors.New("unsupported credentials prov
 // NewServiceLocator initiates a new *service.Locator.
 func NewServiceLocator() *service.Locator {
 	l := &service.Locator{}
+
+	l.Fs = afero.NewOsFs()
 
 	l.ClockProvider = clock.New()
 	l.StdioProvider = io.DefaultStdio()

@@ -23,14 +23,6 @@ var emptyUUID uuid.UUID
 // Option configures Configurator.
 type Option func(c *PromptConfigurator)
 
-// Configurator manages application configuration.
-type Configurator interface {
-	Configure() error
-	SafeRead() (service.Config, error)
-	Read() (service.Config, error)
-	Write(cfg service.Config) error
-}
-
 // PromptConfigurator manages service.Config.
 type PromptConfigurator struct {
 	fs                  afero.Fs
@@ -59,6 +51,11 @@ func (c *PromptConfigurator) getTokenStorage() keychainToken.KeychainStorage {
 	return c.keychainToken
 }
 
+// Configurator provides Configurator.
+func (c *PromptConfigurator) Configurator() service.Configurator {
+	return c
+}
+
 // New creates a new Configurator.
 func New(configFile string, options ...Option) *PromptConfigurator {
 	c := &PromptConfigurator{
@@ -75,7 +72,8 @@ func New(configFile string, options ...Option) *PromptConfigurator {
 	return c
 }
 
-func withFileSystem(fs afero.Fs) Option {
+// WithFileSystem sets filesystem for PromptConfigurator.
+func WithFileSystem(fs afero.Fs) Option {
 	return func(c *PromptConfigurator) {
 		c.fs = fs
 	}

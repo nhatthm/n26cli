@@ -3,21 +3,22 @@ package main
 import (
 	"fmt"
 	"os"
-	"os/user"
+
+	homedir "github.com/mitchellh/go-homedir"
 
 	"github.com/nhatthm/n26cli/internal/app"
 	"github.com/nhatthm/n26cli/internal/cli"
 )
 
 func main() {
-	usr, err := user.Current()
+	homeDir, err := homedir.Dir()
 	if err != nil {
 		panic(err)
 	}
 
 	l := app.NewServiceLocator()
 
-	if err := cli.NewApp(l, usr.HomeDir).Execute(); err != nil {
+	if err := cli.NewApp(l, homeDir).Execute(); err != nil {
 		fmt.Println(err)
 		os.Exit(1)
 	}

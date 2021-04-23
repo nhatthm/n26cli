@@ -10,6 +10,7 @@ require (
 	github.com/gocarina/gocsv v0.0.0-20210408192840-02d7211d929d
 	github.com/google/uuid v1.2.0
 	github.com/magiconair/properties v1.8.5 // indirect
+	github.com/mitchellh/go-homedir v1.1.0
 	github.com/mitchellh/mapstructure v1.4.1
 	github.com/nhatthm/aferomock v0.2.0
 	github.com/nhatthm/clockdog v0.1.2

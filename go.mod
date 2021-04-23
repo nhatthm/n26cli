@@ -9,6 +9,7 @@ require (
 	github.com/cucumber/godog v0.11.0
 	github.com/gocarina/gocsv v0.0.0-20210408192840-02d7211d929d
 	github.com/google/uuid v1.2.0
+	github.com/imdario/mergo v0.3.12
 	github.com/magiconair/properties v1.8.5 // indirect
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/mitchellh/mapstructure v1.4.1

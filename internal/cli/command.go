@@ -13,7 +13,9 @@ import (
 
 // newAPICommand creates a new API command and decorates it with some global flags.
 func newAPICommand(l *service.Locator, newCommand func(l *service.Locator) *cobra.Command) *cobra.Command {
-	var apiCfg apiConfig
+	cliCfg := service.Config{
+		OutputFormat: service.OutputFormatPrettyJSON,
+	}
 
 	cmd := newCommand(l)
 
@@ -21,9 +23,9 @@ func newAPICommand(l *service.Locator, newCommand func(l *service.Locator) *cobr
 	cmd.SetOut(l.OutOrStdout())
 	cmd.SetErr(l.ErrOrStderr())
 
-	cmd.Flags().StringVarP(&apiCfg.Username, "username", "u", "", "n26 username")
-	cmd.Flags().StringVarP(&apiCfg.Password, "password", "p", "", "n26 password")
-	cmd.Flags().StringVar(&apiCfg.Format, "format", "", "output format")
+	cmd.Flags().StringVarP(&cliCfg.N26.Username, "username", "u", "", "n26 username")
+	cmd.Flags().StringVarP(&cliCfg.N26.Password, "password", "p", "", "n26 password")
+	cmd.Flags().StringVar(&cliCfg.OutputFormat, "format", "", "output format")
 
 	run := runner(cmd)
 
@@ -34,7 +36,7 @@ func newAPICommand(l *service.Locator, newCommand func(l *service.Locator) *cobr
 
 	cmd.RunE = nil
 	cmd.Run = func(cmd *cobra.Command, args []string) {
-		if err := makeLocator(l, apiCfg); err != nil {
+		if err := makeLocator(l, cliCfg); err != nil {
 			handleErr(cmd, err)
 
 			return
@@ -60,32 +62,18 @@ func runner(cmd *cobra.Command) func(cmd *cobra.Command, args []string) {
 	}
 }
 
-func makeLocator(l *service.Locator, apiCfg apiConfig) error {
-	c, err := configurator.New(rootCfg.ConfigFile).SafeRead()
+func makeLocator(l *service.Locator, cliCfg service.Config) error {
+	fileCfg, err := configurator.New(rootCfg.ConfigFile).SafeRead()
 	if err != nil {
 		return err
 	}
 
-	if apiCfg.Format != "" {
-		c.OutputFormat = apiCfg.Format
-	} else if c.OutputFormat == "" {
-		c.OutputFormat = service.OutputFormatPrettyJSON
+	cliCfg.Log.Level = logLevel()
+	cliCfg.Log.Output = l.ErrOrStderr()
+
+	if err := mergeConfig(&l.Config, fileCfg, cliCfg); err != nil {
+		return err
 	}
-
-	if l.Config.Log.Level != 0 {
-		c.Log.Level = l.Config.Log.Level
-	} else {
-		c.Log.Level = logLevel()
-	}
-
-	c.Log.Output = l.ErrOrStderr()
-	c.N26.BaseURL = l.Config.N26.BaseURL
-	c.N26.Username = apiCfg.Username
-	c.N26.Password = apiCfg.Password
-	c.N26.MFAWait = l.Config.N26.MFAWait
-	c.N26.MFATimeout = l.Config.N26.MFATimeout
-
-	l.Config = c
 
 	return app.MakeServiceLocator(l)
 }

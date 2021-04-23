@@ -1,12 +1,14 @@
 package cli
 
 import (
+	"fmt"
+	"io"
+
 	"github.com/spf13/cobra"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 
 	"github.com/nhatthm/n26cli/internal/app"
-	"github.com/nhatthm/n26cli/internal/fmt"
 	"github.com/nhatthm/n26cli/internal/service"
 	"github.com/nhatthm/n26cli/internal/service/configurator"
 )
@@ -37,7 +39,7 @@ func newAPICommand(l *service.Locator, newCommand func(l *service.Locator) *cobr
 	cmd.RunE = nil
 	cmd.Run = func(cmd *cobra.Command, args []string) {
 		if err := makeLocator(l, cliCfg); err != nil {
-			handleErr(cmd, err)
+			handleErr(cmd.ErrOrStderr(), err)
 
 			return
 		}
@@ -57,7 +59,7 @@ func runner(cmd *cobra.Command) func(cmd *cobra.Command, args []string) {
 
 	return func(cmd *cobra.Command, args []string) {
 		if err := fn(cmd, args); err != nil {
-			handleErr(cmd, err)
+			handleErr(cmd.ErrOrStderr(), err)
 		}
 	}
 }
@@ -90,10 +92,10 @@ func logLevel() zapcore.Level {
 	return zap.WarnLevel
 }
 
-func handleErr(fmt fmt.Fmt, err error) {
+func handleErr(stderr io.Writer, err error) {
 	if rootCfg.Debug {
 		panic(err)
 	}
 
-	fmt.PrintErrln(err)
+	_, _ = fmt.Fprintln(stderr, err)
 }

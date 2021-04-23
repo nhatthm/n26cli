@@ -2,6 +2,8 @@
 package version
 
 import (
+	"fmt"
+	"io"
 	"runtime"
 	"runtime/debug"
 )
@@ -14,18 +16,20 @@ var (
 	branch       string
 	buildUser    string
 	buildDate    string
-	dependencies map[string]string
+	dependencies []*debug.Module
 )
 
 // Information holds app version info.
 type Information struct {
-	Version      string            `json:"version,omitempty"`
-	Revision     string            `json:"revision,omitempty"`
-	Branch       string            `json:"branch,omitempty"`
-	BuildUser    string            `json:"build_user,omitempty"`
-	BuildDate    string            `json:"build_date,omitempty"`
-	GoVersion    string            `json:"go_version,omitempty"`
-	Dependencies map[string]string `json:"dependencies,omitempty"`
+	Version      string
+	Revision     string
+	Branch       string
+	BuildUser    string
+	BuildDate    string
+	GoVersion    string
+	GoOS         string
+	GoArch       string
+	Dependencies []*debug.Module
 }
 
 // Info returns app version info.
@@ -37,6 +41,8 @@ func Info() Information {
 		BuildUser:    buildUser,
 		BuildDate:    buildDate,
 		GoVersion:    runtime.Version(),
+		GoOS:         runtime.GOOS,
+		GoArch:       runtime.GOARCH,
 		Dependencies: dependencies,
 	}
 }
@@ -44,10 +50,25 @@ func Info() Information {
 //nolint:gochecknoinits
 func init() {
 	if info, available := debug.ReadBuildInfo(); available {
-		dependencies = make(map[string]string, len(info.Deps))
+		dependencies = info.Deps
+	}
+}
 
-		for _, dep := range info.Deps {
-			dependencies[dep.Path] = dep.Version
-		}
+// WriteInformation writes the formatted information.
+func WriteInformation(w io.Writer, info Information, showFull bool) {
+	_, _ = fmt.Fprintf(w, "%s (rev: %s; %s; %s/%s)\n", info.Version, info.Revision, info.GoVersion, info.GoOS, info.GoArch)
+
+	if !showFull {
+		return
+	}
+
+	_, _ = fmt.Fprintln(w)
+	_, _ = fmt.Fprintf(w, "build user: %s\n", info.BuildUser)
+	_, _ = fmt.Fprintf(w, "build date: %s\n", info.BuildDate)
+	_, _ = fmt.Fprintln(w)
+	_, _ = fmt.Fprintln(w, "dependencies:")
+
+	for _, dep := range info.Dependencies {
+		_, _ = fmt.Fprintf(w, "  %s: %s\n", dep.Path, dep.Version)
 	}
 }

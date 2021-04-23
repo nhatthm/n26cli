@@ -4,6 +4,7 @@ on:
     branches:
       - master
   pull_request:
+  workflow_dispatch:
 env:
   GO111MODULE: "on"
   GO_LATEST_VERSION: "1.16.x"

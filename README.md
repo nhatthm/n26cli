@@ -6,6 +6,7 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/nhatthm/n26cli)](https://goreportcard.com/report/github.com/nhatthm/n26cli)
 [![GoDevDoc](https://img.shields.io/badge/dev-doc-00ADD8?logo=go)](https://pkg.go.dev/github.com/nhatthm/n26cli)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/donate/?hosted_button_id=PJZSGJN57TDJY)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fnhatthm%2Fn26cli.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fnhatthm%2Fn26cli?ref=badge_shield)
 
 An awesome tool for managing your N26 account from the terminal
 
@@ -112,3 +113,7 @@ If you like this tool, you can give me a cup of coffee :)
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;or scan this
 
 <img src="https://user-images.githubusercontent.com/1154587/113494222-ad8cb200-94e6-11eb-9ef3-eb883ada222a.png" width="147px" />
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fnhatthm%2Fn26cli.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fnhatthm%2Fn26cli?ref=badge_large)

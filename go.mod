@@ -18,12 +18,12 @@ require (
 	github.com/nhatthm/consoledog v0.1.6
 	github.com/nhatthm/go-clock v0.6.0
 	github.com/nhatthm/n26aas v0.2.1
-	github.com/nhatthm/n26api v0.3.4
-	github.com/nhatthm/n26godog v0.1.2
+	github.com/nhatthm/n26api v0.3.5
+	github.com/nhatthm/n26godog v0.1.3
 	github.com/nhatthm/n26keychain v0.4.1
 	github.com/nhatthm/n26prompt v0.3.3
 	github.com/nhatthm/surveydog v0.5.1
-	github.com/nhatthm/surveyexpect v0.5.3
+	github.com/nhatthm/surveyexpect v0.5.7
 	github.com/nhatthm/timeparser v0.2.0
 	github.com/pelletier/go-toml v1.9.0 // indirect
 	github.com/spf13/afero v1.6.0
@@ -36,5 +36,6 @@ require (
 	github.com/zalando/go-keyring v0.1.1
 	go.uber.org/multierr v1.6.0 // indirect
 	go.uber.org/zap v1.16.0
+	golang.org/x/sys v0.0.0-20210426230700-d19ff857e887 // indirect
 	gopkg.in/ini.v1 v1.62.0 // indirect
 )

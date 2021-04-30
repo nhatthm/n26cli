@@ -237,8 +237,9 @@ github.com/nhatthm/httpmock v0.6.3/go.mod h1:wE9KU1RZGYD0eLqy5bHieJkG4lU0kWauNyr
 github.com/nhatthm/n26aas v0.2.1 h1:QTZmBRE+GaZXooasJ91+AUD59QU/wb4Zsr5fvbC1DuM=
 github.com/nhatthm/n26aas v0.2.1/go.mod h1:8ERI+qQKQUbUUpvZxz7mUy3uUp0fMWOQ+nheMfIeTEE=
 github.com/nhatthm/n26api v0.3.4/go.mod h1:D+yVRK7DOF2rKCzXcrNm7WfmaF0v9W/dLhFlUWdneJ0=
-github.com/nhatthm/n26api v0.3.5 h1:L/BJ1CmjyZsY/GR9FiIGPdcIMmUfJDUaUooTGWEPFlE=
 github.com/nhatthm/n26api v0.3.5/go.mod h1:v1F9ypNWNHq+aeM2Ka8GXWGNgTkCsAdlSjhGLi6nEUI=
+github.com/nhatthm/n26api v0.3.6 h1:lbWX6VeNXllAEmUbaYnXT89vQUxiZ/m+7Bgq2BZEH48=
+github.com/nhatthm/n26api v0.3.6/go.mod h1:v1F9ypNWNHq+aeM2Ka8GXWGNgTkCsAdlSjhGLi6nEUI=
 github.com/nhatthm/n26godog v0.1.3 h1:v4pYsiTiBUAThzq6jkOUkRINy/zz00RmDHL7+MPeCAE=
 github.com/nhatthm/n26godog v0.1.3/go.mod h1:9PQEIApNu+pp0DFe/ad+LXzKCe2EIEQW0LrXbQZ4afk=
 github.com/nhatthm/n26keychain v0.4.1 h1:cUnVoIwr8zC8cw9WJk93QoCoznm8iSwS2dOjYxP/rew=

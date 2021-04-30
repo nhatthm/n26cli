@@ -18,7 +18,7 @@ require (
 	github.com/nhatthm/consoledog v0.1.6
 	github.com/nhatthm/go-clock v0.6.0
 	github.com/nhatthm/n26aas v0.2.1
-	github.com/nhatthm/n26api v0.3.5
+	github.com/nhatthm/n26api v0.3.6
 	github.com/nhatthm/n26godog v0.1.3
 	github.com/nhatthm/n26keychain v0.4.1
 	github.com/nhatthm/n26prompt v0.3.3

@@ -1,7 +1,10 @@
 Feature: Application Bootstrap
 
+    Background:
+        Given working directory is temporary
+
     Scenario: Find all transaction in range with invalid credentials provider
-        Given I create a file ".n26/config.toml" with content:
+        Given there is a file ".n26/config.toml" with content:
         """
         [n26]
             credentials = "invalid"

@@ -1,5 +1,8 @@
 Feature: Configure
 
+    Background:
+        Given working directory is temporary
+
     Scenario: No config file and do not use keychain
         Given I see a confirm prompt "Do you want to save your credentials to system keychain? (y/N)", I answer no
 
@@ -12,12 +15,12 @@ Feature: Configure
         saved
         """
 
-        And there is a file ".n26/config.toml" with content:
+        And there should be a file ".n26/config.toml" with content matches:
         """
 
         [n26]
           credentials = ""
-          device = "<uuid>"
+          device = "<regexp:\b[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}\b/>"
 
         """
 
@@ -38,19 +41,19 @@ Feature: Configure
         saved
         """
 
-        And there is a file ".n26/config.toml" with content:
+        And there should be a file ".n26/config.toml" with content matches:
         """
 
         [n26]
           credentials = "keychain"
-          device = "<uuid>"
+          device = "<regexp:\b[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}\b/>"
 
         """
 
         And keychain has username "user@example.org" and password "123456"
 
     Scenario: Have config file and change device id
-        Given I create a file ".n26/config.toml" with content:
+        Given there is a file ".n26/config.toml" with content:
         """
         [n26]
             credentials = "keychain"
@@ -73,12 +76,12 @@ Feature: Configure
         saved
         """
 
-        And there is a file ".n26/config.toml" with content:
+        And there should be a file ".n26/config.toml" with content matches:
         """
 
         [n26]
           credentials = ""
-          device = "<uuid>"
+          device = "<regexp:\b[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}\b/>"
 
         """
 
@@ -86,7 +89,7 @@ Feature: Configure
         And keychain has no credentials "ed24ad1f-94a4-4ac6-a097-f2bc54f58f0c"
 
     Scenario: Have config file and no change device id
-        Given I create a file ".n26/config.toml" with content:
+        Given there is a file ".n26/config.toml" with content:
         """
         [n26]
             credentials = "keychain"
@@ -105,7 +108,7 @@ Feature: Configure
         saved
         """
 
-        And there is a file ".n26/config.toml" with content:
+        And there should be a file ".n26/config.toml" with content:
         """
 
         [n26]
@@ -115,7 +118,7 @@ Feature: Configure
         """
 
     Scenario: Have config file and start using keychain
-        Given I create a file ".n26/config.toml" with content:
+        Given there is a file ".n26/config.toml" with content:
         """
         [n26]
             credentials = ""
@@ -139,7 +142,7 @@ Feature: Configure
         saved
         """
 
-        And there is a file ".n26/config.toml" with content:
+        And there should be a file ".n26/config.toml" with content:
         """
 
         [n26]
@@ -151,7 +154,7 @@ Feature: Configure
         And keychain has username "user@example.org" and password "123456"
 
     Scenario: Have config file and stop using keychain
-        Given I create a file ".n26/config.toml" with content:
+        Given there is a file ".n26/config.toml" with content:
         """
         [n26]
             credentials = "keychain"
@@ -174,7 +177,7 @@ Feature: Configure
         saved
         """
 
-        And there is a file ".n26/config.toml" with content:
+        And there should be a file ".n26/config.toml" with content:
         """
 
         [n26]
@@ -186,7 +189,7 @@ Feature: Configure
         And keychain has no credentials "ed24ad1f-94a4-4ac6-a097-f2bc54f58f0c"
 
     Scenario: Have config file and do not change credentials
-        Given I create a file ".n26/config.toml" with content:
+        Given there is a file ".n26/config.toml" with content:
         """
         [n26]
             credentials = "keychain"
@@ -214,7 +217,7 @@ Feature: Configure
         saved
         """
 
-        And there is a file ".n26/config.toml" with content:
+        And there should be a file ".n26/config.toml" with content:
         """
 
         [n26]

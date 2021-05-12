@@ -4,9 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"os"
 	"path/filepath"
-	"regexp"
 	"strings"
 	"sync"
 	"testing"
@@ -23,11 +21,10 @@ import (
 	"github.com/spf13/viper"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/zalando/go-keyring"
+	keyring "github.com/zalando/go-keyring"
 )
 
 var (
-	uuidPattern        = `\b[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}\b`
 	credentialsService = "n26api.credentials.test"
 	tokenService       = "n26api.token.test" // nolint: gosec
 )
@@ -38,7 +35,6 @@ type appManager struct {
 	stdio terminal.Stdio
 	test  *testing.T
 
-	homeDir string
 	keys    map[string][]string
 	baseURL string
 
@@ -54,36 +50,22 @@ func (m *appManager) WithStdio(_ *godog.Scenario, stdio terminal.Stdio) {
 }
 
 func (m *appManager) registerContext(ctx *godog.ScenarioContext) {
-	ctx.BeforeScenario(m.init)
-
 	ctx.AfterScenario(func(sc *godog.Scenario, _ error) {
 		m.cleanup()
 	})
 
 	ctx.Step(`run command "([^"]*)"`, m.runCommandSimple)
 	ctx.Step(`run command (\[[^\]]*\])`, m.runCommandArgs)
-	ctx.Step(`create a file "([^"]+)" with content:`, m.createFileContent)
 	ctx.Step(`create a credentials "([^"]+)" in keychain with content:`, m.createKeychainKey)
 	ctx.Step(`delete token "([^"]+)" in keychain`, m.deleteKeychainToken)
-	ctx.Step(`there is a file "([^"]+)" with content:`, m.hasFileContent)
 	ctx.Step(`configured device is not "([^"]*)"`, m.isNotDevice)
 	ctx.Step(`keychain has no credentials "([^"]*)"`, m.hasNoCredentialsInKeychain)
 	ctx.Step(`keychain has username "([^"]*)" and password "([^"]*)"`, m.hasCredentialsInKeychain)
 }
 
-func (m *appManager) init(sc *godog.Scenario) {
-	m.mu.Lock()
-	defer m.mu.Unlock()
-
-	m.homeDir = filepath.Join(m.test.TempDir(), "n26", sc.Id)
-}
-
 func (m *appManager) cleanup() {
 	m.mu.Lock()
 	defer m.mu.Unlock()
-
-	err := m.fs.RemoveAll(m.homeDir)
-	require.NoError(m.test, err)
 
 	for svc, usernames := range m.keys {
 		for _, username := range usernames {
@@ -98,7 +80,7 @@ func (m *appManager) cleanup() {
 func (m *appManager) config() (*viper.Viper, error) {
 	v := viper.New()
 
-	v.SetConfigFile(filepath.Join(m.homeDir, ".n26", "config.toml"))
+	v.SetConfigFile(filepath.Join(".n26", "config.toml"))
 
 	if err := v.ReadInConfig(); err != nil {
 		return nil, err
@@ -159,7 +141,7 @@ func (m *appManager) runCommand(args []string) (err error) {
 	l.N26.MFAWait = 5 * time.Millisecond
 	l.N26.MFATimeout = time.Second
 
-	cmd := cli.NewApp(l, m.homeDir)
+	cmd := cli.NewApp(l, ".")
 
 	cmd.SetIn(m.stdio.In)
 	cmd.SetOut(m.stdio.Out)
@@ -190,16 +172,6 @@ func (m *appManager) runCommand(args []string) (err error) {
 	}
 }
 
-func (m *appManager) createFileContent(filePath string, expectedBody *godog.DocString) error {
-	filePath = filepath.Join(m.homeDir, filePath)
-
-	if err := m.fs.MkdirAll(filepath.Dir(filePath), os.ModePerm); err != nil {
-		return err
-	}
-
-	return afero.WriteFile(m.fs, filePath, []byte(expectedBody.Content), os.ModePerm)
-}
-
 func (m *appManager) createKeychainKey(key string, content *godog.DocString) error {
 	m.registerKeyring(credentialsService, key)
 
@@ -213,29 +185,6 @@ func (m *appManager) deleteKeychainToken(key string) error {
 	}
 
 	return nil
-}
-
-func (m *appManager) hasFileContent(filePath string, expectedBody *godog.DocString) error {
-	filePath = filepath.Join(m.homeDir, filePath)
-
-	_, err := m.fs.Stat(filePath)
-	if err != nil {
-		return err
-	}
-
-	actual, err := afero.ReadFile(m.fs, filePath)
-	if err != nil {
-		return err
-	}
-
-	expected := regexp.QuoteMeta(expectedBody.Content)
-	expected = strings.ReplaceAll(expected, "<uuid>", uuidPattern)
-	expected = fmt.Sprintf("^%s$", expected)
-
-	t := t()
-	assert.Regexp(t, expected, string(actual))
-
-	return t.LastError()
 }
 
 func (m *appManager) isNotDevice(expected string) error {

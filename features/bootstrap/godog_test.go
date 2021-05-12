@@ -10,6 +10,7 @@ import (
 	"testing"
 
 	"github.com/cucumber/godog"
+	"github.com/nhatthm/aferodog"
 	"github.com/nhatthm/clockdog"
 	"github.com/nhatthm/consoledog"
 	"github.com/nhatthm/n26godog"
@@ -47,6 +48,7 @@ func TestIntegration(t *testing.T) {
 	server := n26godog.New(t)
 	clock := clockdog.New()
 	am := newAppManager(t, server.URL(), clock)
+	fsManager := aferodog.NewManager()
 	console := consoledog.New(t)
 	survey := surveydog.New(t).
 		WithConsole(console).
@@ -55,6 +57,7 @@ func TestIntegration(t *testing.T) {
 	RunSuite(t, "..", func(_ *testing.T, ctx *godog.ScenarioContext) {
 		am.registerContext(ctx)
 		clock.RegisterContext(ctx)
+		fsManager.RegisterContext(t, ctx)
 		console.RegisterContext(ctx)
 		survey.RegisterContext(ctx)
 		server.RegisterContext(ctx)

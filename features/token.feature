@@ -1,5 +1,8 @@
 Feature: Token Reuse
 
+    Background:
+        Given working directory is temporary
+
     Scenario: Find all transaction in range without username
         Given I see a password prompt "Enter username (input is hidden) >", I interrupt
 
@@ -36,7 +39,7 @@ Feature: Token Reuse
         """
 
     Scenario: Find all transaction in range and reuse the token
-        Given I create a file ".n26/config.toml" with content:
+        Given there is a file ".n26/config.toml" with content:
         """
         [n26]
             credentials = "keychain"
@@ -147,7 +150,7 @@ Feature: Token Reuse
         Then I delete token "user@example.org:ed24ad1f-94a4-4ac6-a097-f2bc54f58f0c" in keychain
 
     Scenario: Find all transaction in range and refresh the token
-        Given I create a file ".n26/config.toml" with content:
+        Given there is a file ".n26/config.toml" with content:
         """
         [n26]
             credentials = "keychain"
@@ -261,7 +264,7 @@ Feature: Token Reuse
         Then I delete token "user@example.org:ed24ad1f-94a4-4ac6-a097-f2bc54f58f0c" in keychain
 
     Scenario: Find all transaction in range and relogin
-        Given I create a file ".n26/config.toml" with content:
+        Given there is a file ".n26/config.toml" with content:
         """
         [n26]
             credentials = "keychain"

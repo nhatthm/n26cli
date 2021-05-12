@@ -1,5 +1,8 @@
 Feature: Transactions
 
+    Background:
+        Given working directory is temporary
+
     Scenario: Find all transaction in range with invalid from
         When I run command "transactions --from foobar"
 
@@ -17,7 +20,7 @@ Feature: Transactions
         """
 
     Scenario: Find all transaction in range with config file in pretty json format
-        Given I create a file ".n26/config.toml" with content:
+        Given there is a file ".n26/config.toml" with content:
         """
         [n26]
             credentials = "keychain"
@@ -90,7 +93,7 @@ Feature: Transactions
         Then I delete token "user@example.org:ed24ad1f-94a4-4ac6-a097-f2bc54f58f0c" in keychain
 
     Scenario: Find all transaction in range with config file in json format
-        Given I create a file ".n26/config.toml" with content:
+        Given there is a file ".n26/config.toml" with content:
         """
         [n26]
             credentials = "keychain"
@@ -148,7 +151,7 @@ Feature: Transactions
         Then I delete token "user@example.org:ed24ad1f-94a4-4ac6-a097-f2bc54f58f0c" in keychain
 
     Scenario: Find all transaction in range with config file in csv format
-        Given I create a file ".n26/config.toml" with content:
+        Given there is a file ".n26/config.toml" with content:
         """
         [n26]
             credentials = "keychain"

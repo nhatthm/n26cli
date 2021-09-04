@@ -35,7 +35,6 @@ Feature: Configure
         """
         ? Do you want to save your credentials to system keychain? Yes
         ? Enter username (input is hidden, leave it empty if no change) > **************
-        **
         ? Enter password (input is hidden, leave it empty if no change) > ******
 
         saved
@@ -136,7 +135,6 @@ Feature: Configure
         ? Do you want to generate a new device id? No
         ? Do you want to save your credentials to system keychain? Yes
         ? Enter username (input is hidden, leave it empty if no change) > **************
-        **
         ? Enter password (input is hidden, leave it empty if no change) > ******
 
         saved
@@ -211,7 +209,6 @@ Feature: Configure
         ? Do you want to generate a new device id? No
         ? Do you want to save your credentials to system keychain? Yes
         ? Enter username (input is hidden, leave it empty if no change) > **************
-        **
         ? Enter password (input is hidden, leave it empty if no change) >
 
         saved

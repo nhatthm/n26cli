@@ -7,28 +7,15 @@ on:
   workflow_dispatch:
 env:
   GO111MODULE: "on"
-  GO_LATEST_VERSION: "1.16.x"
+  GO_LATEST_VERSION: "1.17.x"
 jobs:
-  test:
+  test-macos:
     strategy:
       fail-fast: false
       matrix:
-        # with Ubuntu 18.04, python-gnomekeyring has been deprecated and deleted
-        # from the archives so we need to use ubuntu-16.04.
-        # Do not forget to update Install Dependencies (Linux) step if the version
-        # of ubuntu is changed.
-        # https://launchpad.net/ubuntu/+source/gnome-python-desktop/+publishinghistory
-        os: [ ubuntu-16.04, macos-latest ]
-        go-version: [ 1.16.x ]
-    runs-on: ${{ matrix.os }}
+        go-version: [ 1.16.x, 1.17.x ]
+    runs-on: macos-latest
     steps:
-      - name: Install Dependencies (Linux)
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y python-gnomekeyring gnome-keyring
-          dbus-launch /usr/bin/python -c "import gnomekeyring;gnomekeyring.create_sync('login', '');"
-        if: matrix.os == 'ubuntu-16.04'
-
       - name: Install Go
         uses: actions/setup-go@v2
         with:
@@ -42,7 +29,7 @@ jobs:
         with:
           # In order:
           # * Module download cache
-          # * Build cache (Linux)
+          # * Build cache
           path: |
             ~/go/pkg/mod
             ~/.cache/go-build
@@ -54,6 +41,61 @@ jobs:
         id: test
         run: |
           make test
+
+      - name: Upload code coverage (unit)
+        if: matrix.go-version == env.GO_LATEST_VERSION
+        uses: codecov/codecov-action@v1
+        with:
+          file: ./unit.coverprofile
+          flags: unittests-${{ runner.os }}
+
+      - name: Upload code coverage (features)
+        if: matrix.go-version == env.GO_LATEST_VERSION
+        uses: codecov/codecov-action@v1
+        with:
+          file: ./features.coverprofile
+          flags: featurestests-${{ runner.os }}
+
+  test-linux:
+    strategy:
+      fail-fast: false
+      matrix:
+        go-version: [ 1.16.x, 1.17.x ]
+    runs-on: ubuntu-latest
+    container:
+      image: nhatthm/ubuntu-keyring:20.04
+      options: --privileged
+    steps:
+      - name: Install Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: ${{ matrix.go-version }}
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Go cache
+        uses: actions/cache@v2
+        with:
+          # In order:
+          # * Module download cache
+          # * Build cache
+          path: |
+            ~/go/pkg/mod
+            ~/.cache/go-build
+          key: ${{ runner.os }}-go-${{ matrix.go-version }}-cache-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-go-${{ matrix.go-version }}-cache
+
+      - name: Test
+        id: test
+        run: |
+          mkdir -p /github/home/.cache/
+          mkdir -p /github/home/.local/share/keyrings/
+          chmod 700 -R /github/home/.local/
+          echo 'somecredstorepass' | gnome-keyring-daemon --unlock
+          make test
+        shell: dbus-run-session -- bash --noprofile --norc -eo pipefail {0}
 
       - name: Upload code coverage (unit)
         if: matrix.go-version == env.GO_LATEST_VERSION

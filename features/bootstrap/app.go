@@ -1,6 +1,7 @@
 package bootstrap
 
 import (
+	"context"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -13,15 +14,16 @@ import (
 	"github.com/AlecAivazis/survey/v2/terminal"
 	"github.com/cucumber/godog"
 	"github.com/nhatthm/clockdog"
-	"github.com/nhatthm/n26cli/internal/app"
-	"github.com/nhatthm/n26cli/internal/cli"
-	"github.com/nhatthm/n26cli/internal/io"
 	"github.com/spf13/afero"
 	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	keyring "github.com/zalando/go-keyring"
+	"github.com/zalando/go-keyring"
+
+	"github.com/nhatthm/n26cli/internal/app"
+	"github.com/nhatthm/n26cli/internal/cli"
+	"github.com/nhatthm/n26cli/internal/io"
 )
 
 var (
@@ -50,8 +52,10 @@ func (m *appManager) WithStdio(_ *godog.Scenario, stdio terminal.Stdio) {
 }
 
 func (m *appManager) registerContext(ctx *godog.ScenarioContext) {
-	ctx.AfterScenario(func(sc *godog.Scenario, _ error) {
+	ctx.After(func(context.Context, *godog.Scenario, error) (context.Context, error) {
 		m.cleanup()
+
+		return nil, nil
 	})
 
 	ctx.Step(`run command "([^"]*)"`, m.runCommandSimple)

@@ -11,7 +11,7 @@ An awesome tool for managing your N26 account from the terminal
 
 ## Prerequisites
 
-- `Go >= 1.16`
+- `Go >= 1.17`
 - Mac or Linux (dbus) (see [more](https://github.com/zalando/go-keyring#dependencies))
 
 ## Install

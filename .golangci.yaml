@@ -29,18 +29,21 @@ linters:
     - gomnd
     - ifshort
     - interfacer
+    - ireturn
     - lll
     - maligned
     - paralleltest
     - scopelint
     - testpackage
     - wrapcheck
+    - varnamelen
 
 issues:
   exclude-use-default: false
   exclude-rules:
     - linters:
         - dupl
+        - errcheck
         - funlen
         - goconst
         - goerr113

@@ -27,8 +27,8 @@ import (
 )
 
 var (
-	credentialsService = "n26api.credentials.test"
-	tokenService       = "n26api.token.test" // nolint: gosec
+	credentialsService = "n26api.credentials.test" // nolint: gosec
+	tokenService       = "n26api.token.test"       // nolint: gosec
 )
 
 type appManager struct {

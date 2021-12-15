@@ -10,7 +10,7 @@ import (
 	"testing"
 
 	"github.com/cucumber/godog"
-	"github.com/nhatthm/aferodog"
+	"github.com/godogx/aferosteps"
 	"github.com/nhatthm/clockdog"
 	"github.com/nhatthm/consoledog"
 	"github.com/nhatthm/n26godog"
@@ -48,7 +48,7 @@ func TestIntegration(t *testing.T) {
 	server := n26godog.New(t)
 	clock := clockdog.New()
 	am := newAppManager(t, server.URL(), clock)
-	fsManager := aferodog.NewManager()
+	fsManager := aferosteps.NewManager()
 	console := consoledog.New(t)
 	survey := surveydog.New(t).
 		WithConsole(console).

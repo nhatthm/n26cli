@@ -30,12 +30,13 @@ require (
 	github.com/spf13/pflag v1.0.5
 	github.com/spf13/viper v1.10.1
 	github.com/stretchr/testify v1.7.0
-	github.com/zalando/go-keyring v0.1.1
+	github.com/zalando/go-keyring v0.2.0
 	go.uber.org/zap v1.21.0
 )
 
 require (
 	github.com/Netflix/go-expect v0.0.0-20211003183012-e1a7c020ce25 // indirect
+	github.com/alessio/shellescape v1.4.1 // indirect
 	github.com/bool64/shared v0.1.3 // indirect
 	github.com/creack/pty v1.1.17 // indirect
 	github.com/cucumber/gherkin-go/v19 v19.0.3 // indirect

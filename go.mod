@@ -3,7 +3,7 @@ module github.com/nhatthm/n26cli
 go 1.17
 
 require (
-	github.com/AlecAivazis/survey/v2 v2.3.2
+	github.com/AlecAivazis/survey/v2 v2.3.3
 	github.com/bool64/ctxd v1.1.2
 	github.com/bool64/zapctxd v1.0.0
 	github.com/cucumber/godog v0.12.4
@@ -35,7 +35,7 @@ require (
 )
 
 require (
-	github.com/Netflix/go-expect v0.0.0-20211003183012-e1a7c020ce25 // indirect
+	github.com/Netflix/go-expect v0.0.0-20220104043353-73e0943537d2 // indirect
 	github.com/alessio/shellescape v1.4.1 // indirect
 	github.com/bool64/shared v0.1.3 // indirect
 	github.com/creack/pty v1.1.17 // indirect
@@ -52,11 +52,10 @@ require (
 	github.com/hashicorp/go-memdb v1.3.2 // indirect
 	github.com/hashicorp/golang-lru v0.5.4 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
-	github.com/hinshun/vt10x v0.0.0-20180809195222-d55458df857c // indirect
+	github.com/hinshun/vt10x v0.0.0-20220119200601-820417d04eec // indirect
 	github.com/iancoleman/orderedmap v0.2.0 // indirect
 	github.com/inconshreveable/mousetrap v1.0.0 // indirect
 	github.com/kballard/go-shellquote v0.0.0-20180428030007-95032a82bc51 // indirect
-	github.com/kr/pty v1.1.8 // indirect
 	github.com/magiconair/properties v1.8.5 // indirect
 	github.com/mattn/go-colorable v0.1.12 // indirect
 	github.com/mattn/go-isatty v0.0.14 // indirect

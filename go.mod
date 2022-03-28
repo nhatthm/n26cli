@@ -6,7 +6,7 @@ require (
 	github.com/AlecAivazis/survey/v2 v2.3.4
 	github.com/bool64/ctxd v1.1.2
 	github.com/bool64/zapctxd v1.0.0
-	github.com/cucumber/godog v0.12.4
+	github.com/cucumber/godog v0.12.5
 	github.com/gocarina/gocsv v0.0.0-20220310154401-d4df709ca055
 	github.com/godogx/aferosteps v0.1.2
 	github.com/google/uuid v1.3.0

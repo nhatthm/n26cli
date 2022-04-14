@@ -28,7 +28,7 @@ require (
 	github.com/spf13/afero v1.8.2
 	github.com/spf13/cobra v1.4.0
 	github.com/spf13/pflag v1.0.5
-	github.com/spf13/viper v1.10.1
+	github.com/spf13/viper v1.11.0
 	github.com/stretchr/testify v1.7.1
 	github.com/zalando/go-keyring v0.2.1
 	go.uber.org/zap v1.21.0
@@ -64,6 +64,7 @@ require (
 	github.com/nhatthm/go-matcher v1.3.1 // indirect
 	github.com/nhatthm/httpmock v0.7.0 // indirect
 	github.com/pelletier/go-toml v1.9.4 // indirect
+	github.com/pelletier/go-toml/v2 v2.0.0-beta.8 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/sergi/go-diff v1.2.0 // indirect
 	github.com/spf13/cast v1.4.1 // indirect
@@ -75,7 +76,7 @@ require (
 	github.com/yudai/golcs v0.0.0-20170316035057-ecda9a501e82 // indirect
 	go.uber.org/atomic v1.9.0 // indirect
 	go.uber.org/multierr v1.8.0 // indirect
-	golang.org/x/sys v0.0.0-20220319134239-a9b59b0215f8 // indirect
+	golang.org/x/sys v0.0.0-20220412211240-33da011f77ad // indirect
 	golang.org/x/term v0.0.0-20210927222741-03fcf44c2211 // indirect
 	golang.org/x/text v0.3.7 // indirect
 	gopkg.in/ini.v1 v1.66.4 // indirect

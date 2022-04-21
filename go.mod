@@ -12,7 +12,7 @@ require (
 	github.com/google/uuid v1.3.0
 	github.com/imdario/mergo v0.3.12
 	github.com/mitchellh/go-homedir v1.1.0
-	github.com/mitchellh/mapstructure v1.4.3
+	github.com/mitchellh/mapstructure v1.5.0
 	github.com/nhatthm/aferomock v0.3.1
 	github.com/nhatthm/clockdog v0.2.0
 	github.com/nhatthm/consoledog v0.3.0

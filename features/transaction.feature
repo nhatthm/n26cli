@@ -23,8 +23,8 @@ Feature: Transactions
         Given there is a file ".n26/config.toml" with content:
         """
         [n26]
-            credentials = "keychain"
-            device = "ed24ad1f-94a4-4ac6-a097-f2bc54f58f0c"
+        credentials = 'keychain'
+        device = 'ed24ad1f-94a4-4ac6-a097-f2bc54f58f0c'
         """
         And I create a credentials "ed24ad1f-94a4-4ac6-a097-f2bc54f58f0c" in keychain with content:
         """
@@ -96,8 +96,8 @@ Feature: Transactions
         Given there is a file ".n26/config.toml" with content:
         """
         [n26]
-            credentials = "keychain"
-            device = "ed24ad1f-94a4-4ac6-a097-f2bc54f58f0c"
+            credentials = 'keychain'
+            device = 'ed24ad1f-94a4-4ac6-a097-f2bc54f58f0c'
         """
         And I create a credentials "ed24ad1f-94a4-4ac6-a097-f2bc54f58f0c" in keychain with content:
         """
@@ -154,8 +154,8 @@ Feature: Transactions
         Given there is a file ".n26/config.toml" with content:
         """
         [n26]
-            credentials = "keychain"
-            device = "ed24ad1f-94a4-4ac6-a097-f2bc54f58f0c"
+        credentials = 'keychain'
+        device = 'ed24ad1f-94a4-4ac6-a097-f2bc54f58f0c'
         """
         And I create a credentials "ed24ad1f-94a4-4ac6-a097-f2bc54f58f0c" in keychain with content:
         """

@@ -17,10 +17,10 @@ Feature: Configure
 
         And there should be a file ".n26/config.toml" with content matches:
         """
-
         [n26]
-          credentials = ""
-          device = "<regexp:\b[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}\b/>"
+        credentials = ''
+        device = '<regexp:\b[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}\b/>'
+
 
         """
 
@@ -42,10 +42,10 @@ Feature: Configure
 
         And there should be a file ".n26/config.toml" with content matches:
         """
-
         [n26]
-          credentials = "keychain"
-          device = "<regexp:\b[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}\b/>"
+        credentials = 'keychain'
+        device = '<regexp:\b[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}\b/>'
+
 
         """
 
@@ -55,8 +55,8 @@ Feature: Configure
         Given there is a file ".n26/config.toml" with content:
         """
         [n26]
-            credentials = "keychain"
-            device = "ed24ad1f-94a4-4ac6-a097-f2bc54f58f0c"
+        credentials = 'keychain'
+        device = 'ed24ad1f-94a4-4ac6-a097-f2bc54f58f0c'
         """
         And I create a credentials "ed24ad1f-94a4-4ac6-a097-f2bc54f58f0c" in keychain with content:
         """
@@ -77,10 +77,10 @@ Feature: Configure
 
         And there should be a file ".n26/config.toml" with content matches:
         """
-
         [n26]
-          credentials = ""
-          device = "<regexp:\b[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}\b/>"
+        credentials = ''
+        device = '<regexp:\b[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}\b/>'
+
 
         """
 
@@ -91,8 +91,8 @@ Feature: Configure
         Given there is a file ".n26/config.toml" with content:
         """
         [n26]
-            credentials = "keychain"
-            device = "ed24ad1f-94a4-4ac6-a097-f2bc54f58f0c"
+          credentials = 'keychain'
+          device = 'ed24ad1f-94a4-4ac6-a097-f2bc54f58f0c'
         """
         And I see a confirm prompt "Do you want to generate a new device id? (y/N)", I answer no
         And I see a confirm prompt "Do you want to save your credentials to system keychain? (Y/n)", I answer no
@@ -109,10 +109,10 @@ Feature: Configure
 
         And there should be a file ".n26/config.toml" with content:
         """
-
         [n26]
-          credentials = ""
-          device = "ed24ad1f-94a4-4ac6-a097-f2bc54f58f0c"
+        credentials = ''
+        device = 'ed24ad1f-94a4-4ac6-a097-f2bc54f58f0c'
+
 
         """
 
@@ -120,8 +120,8 @@ Feature: Configure
         Given there is a file ".n26/config.toml" with content:
         """
         [n26]
-            credentials = ""
-            device = "ed24ad1f-94a4-4ac6-a097-f2bc54f58f0c"
+        credentials = ''
+        device = 'ed24ad1f-94a4-4ac6-a097-f2bc54f58f0c'
         """
         And I see a confirm prompt "Do you want to generate a new device id? (y/N)", I answer no
         And I see a confirm prompt "Do you want to save your credentials to system keychain? (y/N)", I answer yes
@@ -142,10 +142,10 @@ Feature: Configure
 
         And there should be a file ".n26/config.toml" with content:
         """
-
         [n26]
-          credentials = "keychain"
-          device = "ed24ad1f-94a4-4ac6-a097-f2bc54f58f0c"
+        credentials = 'keychain'
+        device = 'ed24ad1f-94a4-4ac6-a097-f2bc54f58f0c'
+
 
         """
 
@@ -155,8 +155,8 @@ Feature: Configure
         Given there is a file ".n26/config.toml" with content:
         """
         [n26]
-            credentials = "keychain"
-            device = "ed24ad1f-94a4-4ac6-a097-f2bc54f58f0c"
+        credentials = 'keychain'
+        device = 'ed24ad1f-94a4-4ac6-a097-f2bc54f58f0c'
         """
         And I create a credentials "ed24ad1f-94a4-4ac6-a097-f2bc54f58f0c" in keychain with content:
         """
@@ -177,10 +177,10 @@ Feature: Configure
 
         And there should be a file ".n26/config.toml" with content:
         """
-
         [n26]
-          credentials = ""
-          device = "ed24ad1f-94a4-4ac6-a097-f2bc54f58f0c"
+        credentials = ''
+        device = 'ed24ad1f-94a4-4ac6-a097-f2bc54f58f0c'
+
 
         """
 
@@ -190,8 +190,8 @@ Feature: Configure
         Given there is a file ".n26/config.toml" with content:
         """
         [n26]
-            credentials = "keychain"
-            device = "ed24ad1f-94a4-4ac6-a097-f2bc54f58f0c"
+        credentials = 'keychain'
+        device = 'ed24ad1f-94a4-4ac6-a097-f2bc54f58f0c'
         """
         And I create a credentials "ed24ad1f-94a4-4ac6-a097-f2bc54f58f0c" in keychain with content:
         """
@@ -216,10 +216,10 @@ Feature: Configure
 
         And there should be a file ".n26/config.toml" with content:
         """
-
         [n26]
-          credentials = "keychain"
-          device = "ed24ad1f-94a4-4ac6-a097-f2bc54f58f0c"
+        credentials = 'keychain'
+        device = 'ed24ad1f-94a4-4ac6-a097-f2bc54f58f0c'
+
 
         """
 

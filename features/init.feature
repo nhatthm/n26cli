@@ -7,8 +7,8 @@ Feature: Application Bootstrap
         Given there is a file ".n26/config.toml" with content:
         """
         [n26]
-            credentials = "invalid"
-            device = "ed24ad1f-94a4-4ac6-a097-f2bc54f58f0c"
+        credentials = 'invalid'
+        device = 'ed24ad1f-94a4-4ac6-a097-f2bc54f58f0c'
         """
 
         When I run command "transactions -d"

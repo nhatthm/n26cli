@@ -19,7 +19,7 @@ require (
 	github.com/nhatthm/go-clock v0.6.0
 	github.com/nhatthm/n26aas v0.3.0
 	github.com/nhatthm/n26api v0.4.0
-	github.com/nhatthm/n26godog v0.3.0
+	github.com/nhatthm/n26godog v0.4.0
 	github.com/nhatthm/n26keychain v0.5.0
 	github.com/nhatthm/n26prompt v0.5.0
 	github.com/nhatthm/surveydog v0.7.0
@@ -37,7 +37,7 @@ require (
 require (
 	github.com/Netflix/go-expect v0.0.0-20220104043353-73e0943537d2 // indirect
 	github.com/alessio/shellescape v1.4.1 // indirect
-	github.com/bool64/shared v0.1.3 // indirect
+	github.com/bool64/shared v0.1.4 // indirect
 	github.com/creack/pty v1.1.17 // indirect
 	github.com/cucumber/gherkin-go/v19 v19.0.3 // indirect
 	github.com/cucumber/messages-go/v16 v16.0.1 // indirect
@@ -69,9 +69,9 @@ require (
 	github.com/sergi/go-diff v1.2.0 // indirect
 	github.com/spf13/cast v1.5.0 // indirect
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect
-	github.com/stretchr/objx v0.3.0 // indirect
+	github.com/stretchr/objx v0.4.0 // indirect
 	github.com/subosito/gotenv v1.3.0 // indirect
-	github.com/swaggest/assertjson v1.6.8 // indirect
+	github.com/swaggest/assertjson v1.7.0 // indirect
 	github.com/yudai/gojsondiff v1.0.0 // indirect
 	github.com/yudai/golcs v0.0.0-20170316035057-ecda9a501e82 // indirect
 	go.uber.org/atomic v1.9.0 // indirect

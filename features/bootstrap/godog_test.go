@@ -70,7 +70,7 @@ func RunSuite(t *testing.T, path string, featureContext func(t *testing.T, ctx *
 	flag.Parse()
 
 	if opt.Randomize == 0 {
-		opt.Randomize = rand.Int63() // nolint: gosec
+		opt.Randomize = rand.Int63()
 	}
 
 	var paths []string

@@ -243,7 +243,9 @@ func (m *appManager) hasCredentialsInKeychain(username, password string) error {
 	return t.LastError()
 }
 
-func newAppManager(t *testing.T, baseURL string, clock *clockdog.Clock) *appManager { // nolint: thelper
+func newAppManager(t *testing.T, baseURL string, clock *clockdog.Clock) *appManager {
+	t.Helper()
+
 	return &appManager{
 		fs:      afero.NewOsFs(),
 		clock:   clock,

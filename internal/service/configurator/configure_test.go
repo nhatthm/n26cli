@@ -44,11 +44,15 @@ func TestPromptConfigurator_Configure(t *testing.T) {
 
 	oldDevice := uuid.New()
 
-	assertSameDevice := func(t *testing.T, device uuid.UUID) { // nolint: thelper
+	assertSameDevice := func(t *testing.T, device uuid.UUID) {
+		t.Helper()
+
 		assert.Equal(t, oldDevice, device)
 	}
 
-	assertDifferentDevice := func(t *testing.T, device uuid.UUID) { // nolint: thelper
+	assertDifferentDevice := func(t *testing.T, device uuid.UUID) {
+		t.Helper()
+
 		assert.NotEqual(t, oldDevice, device)
 	}
 

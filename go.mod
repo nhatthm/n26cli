@@ -3,11 +3,11 @@ module github.com/nhatthm/n26cli
 go 1.17
 
 require (
-	github.com/AlecAivazis/survey/v2 v2.3.4
+	github.com/AlecAivazis/survey/v2 v2.3.5
 	github.com/bool64/ctxd v1.1.3
 	github.com/bool64/zapctxd v1.0.0
 	github.com/cucumber/godog v0.12.5
-	github.com/gocarina/gocsv v0.0.0-20220520193141-bb9bebb918c3
+	github.com/gocarina/gocsv v0.0.0-20220531201732-5f969b02b902
 	github.com/godogx/aferosteps v0.1.2
 	github.com/google/uuid v1.3.0
 	github.com/imdario/mergo v0.3.13
@@ -38,7 +38,7 @@ require (
 	github.com/Netflix/go-expect v0.0.0-20220104043353-73e0943537d2 // indirect
 	github.com/alessio/shellescape v1.4.1 // indirect
 	github.com/bool64/shared v0.1.4 // indirect
-	github.com/creack/pty v1.1.17 // indirect
+	github.com/creack/pty v1.1.18 // indirect
 	github.com/cucumber/gherkin-go/v19 v19.0.3 // indirect
 	github.com/cucumber/messages-go/v16 v16.0.1 // indirect
 	github.com/danieljoos/wincred v1.1.2 // indirect
@@ -79,7 +79,7 @@ require (
 	golang.org/x/sys v0.0.0-20220520151302-bc2c85ada10a // indirect
 	golang.org/x/term v0.0.0-20210927222741-03fcf44c2211 // indirect
 	golang.org/x/text v0.3.7 // indirect
-	gopkg.in/ini.v1 v1.66.5 // indirect
+	gopkg.in/ini.v1 v1.66.6 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )

@@ -25,7 +25,7 @@ require (
 	github.com/nhatthm/surveydog v0.7.0
 	github.com/nhatthm/surveyexpect v0.7.0
 	github.com/nhatthm/timeparser v0.2.0
-	github.com/spf13/afero v1.9.0
+	github.com/spf13/afero v1.9.2
 	github.com/spf13/cobra v1.5.0
 	github.com/spf13/pflag v1.0.5
 	github.com/spf13/viper v1.12.0

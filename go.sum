@@ -189,13 +189,12 @@ github.com/godbus/dbus/v5 v5.0.4/go.mod h1:xhWf0FNVPg57R7Z0UbKHbJfkEywrmjJnf7w5x
 github.com/godbus/dbus/v5 v5.0.6/go.mod h1:xhWf0FNVPg57R7Z0UbKHbJfkEywrmjJnf7w5xrFpKfA=
 github.com/godbus/dbus/v5 v5.1.0 h1:4KLkAxT3aOY8Li4FRJe/KvhoNFFxo0m6fNuFUO8QJUk=
 github.com/godbus/dbus/v5 v5.1.0/go.mod h1:xhWf0FNVPg57R7Z0UbKHbJfkEywrmjJnf7w5xrFpKfA=
-github.com/godogx/aferosteps v0.1.2 h1:wjMU1XvXi/R0jUtoJOzJBE47VXDOYcU67E4gFy2GY7w=
-github.com/godogx/aferosteps v0.1.2/go.mod h1:Bw/oJRHiE6NHApSF8Rq3qaAVjVlFkF4odQLprPcoTzM=
+github.com/godogx/aferosteps v0.2.0 h1:0xKSiQB7kql4gJLsBHIYgT3T5nAK2s/NUrG227qHEQg=
+github.com/godogx/aferosteps v0.2.0/go.mod h1:r2OYaHk/IkR3kUOhLE8egoasOLu5fxKdBw7Z+QhB11U=
 github.com/godogx/clocksteps v0.1.1/go.mod h1:GcXkCBxqTsXz2vzfv8/w0hGHNJhFQPdNukomq7H6CBU=
 github.com/godogx/expandvars v0.1.1 h1:akTQTzanoPG6QBGI5M9GhY7obzgQOLbRFoOWkUDbxCs=
 github.com/godogx/expandvars v0.1.1/go.mod h1:V9sevK3sRDOMlxNUqDNx1qoqAiOxpXcMPhBMmwKllsk=
 github.com/gofrs/uuid v4.0.0+incompatible/go.mod h1:b2aQJv3Z4Fp6yNu3cdSllBxTCLRxnplIgP/c0N/04lM=
-github.com/gofrs/uuid v4.1.0+incompatible/go.mod h1:b2aQJv3Z4Fp6yNu3cdSllBxTCLRxnplIgP/c0N/04lM=
 github.com/gofrs/uuid v4.2.0+incompatible h1:yyYWMnhkhrKwwr8gAOcOCYxOOscHgDS9yZgBrnJfGa0=
 github.com/gofrs/uuid v4.2.0+incompatible/go.mod h1:b2aQJv3Z4Fp6yNu3cdSllBxTCLRxnplIgP/c0N/04lM=
 github.com/gogo/protobuf v1.1.1/go.mod h1:r8qH/GZQm5c6nD/R0oafs1akxWv10x8SbQlK7atdtwQ=
@@ -424,9 +423,6 @@ github.com/modern-go/reflect2 v1.0.1/go.mod h1:bx2lNnkwVCuqBIxFjflWJWanXIb3Rllmb
 github.com/modern-go/reflect2 v1.0.2/go.mod h1:yWuevngMOJpCy52FWWMvUC8ws7m/LJsjYzDa0/r8luk=
 github.com/mwitkow/go-conntrack v0.0.0-20161129095857-cc309e4a2223/go.mod h1:qRWi+5nqEBWmkhHvq77mSJWrCKwh8bxhgT7d/eI7P4U=
 github.com/mwitkow/go-conntrack v0.0.0-20190716064945-2f068394615f/go.mod h1:qRWi+5nqEBWmkhHvq77mSJWrCKwh8bxhgT7d/eI7P4U=
-github.com/nhatthm/aferoassert v0.1.6 h1:qsGm9fTB7aj1B5zvUftzNyo+bNFba/6dPiRT2wBjM7s=
-github.com/nhatthm/aferoassert v0.1.6/go.mod h1:Oirgw+hWRqCSg+p+lDhg2uKpcXMRM2DOi8JlTT6MNeg=
-github.com/nhatthm/aferomock v0.3.0/go.mod h1:/oTcy0NDM+qQJEEOWiuiKuogilXvv/KZcdaXaP/rX3g=
 github.com/nhatthm/aferomock v0.3.1 h1:L6oGPOdm+GoJ0HDoo2XZpVq++JieZs5PBUdM/8hO8aY=
 github.com/nhatthm/aferomock v0.3.1/go.mod h1:mev14Kms7DBCX/djc5zmf57EgLgmA6k2654EzvRq1vM=
 github.com/nhatthm/clockdog v0.2.0 h1:ZetMnMOIhcO9JDe9TpCQU/jKa5jk1dbJbgz74SB1USA=
@@ -598,6 +594,10 @@ go.etcd.io/etcd/api/v3 v3.5.4/go.mod h1:5GB2vv4A4AOn3yk7MftYGHkUfGtDHnEraIjym4dY
 go.etcd.io/etcd/client/pkg/v3 v3.5.4/go.mod h1:IJHfcCEKxYu1Os13ZdwCwIUTUVGYTSAM3YSwc9/Ac1g=
 go.etcd.io/etcd/client/v2 v2.305.4/go.mod h1:Ud+VUwIi9/uQHOMA+4ekToJ12lTxlv0zB/+DHwTGEbU=
 go.etcd.io/etcd/client/v3 v3.5.4/go.mod h1:ZaRkVgBZC+L+dLCjTcF1hRXpgZXQPOvnA/Ak/gq3kiY=
+go.nhat.io/aferoassert v0.2.0 h1:mKPpr3Fo1UMZf/EbBrRxwBiim3UX5lyVPSGTktGL4r4=
+go.nhat.io/aferoassert v0.2.0/go.mod h1:nvq2Y4ZM+DrrYF0ZkQse46FUGZRcvxnDe+xdWR7uZG4=
+go.nhat.io/aferomock v0.4.0 h1:gs3nJzIqAezglUuaPfautAmZwulwRWLcfSSzdK4YCC0=
+go.nhat.io/aferomock v0.4.0/go.mod h1:msi5MDOtJ/AroUa/lDc3jVGOILM4SKP//4yBRImOvkI=
 go.opencensus.io v0.21.0/go.mod h1:mSImk1erAIZhrmZN+AvHh14ztQfjbGwt4TtuofqLduU=
 go.opencensus.io v0.22.0/go.mod h1:+kGneAE2xo2IficOXnaByMWTGM9T73dGwxeWcUqIpI8=
 go.opencensus.io v0.22.2/go.mod h1:yxeiOL68Rb0Xd1ddK5vPZ/oVn4vY4Ynel7k9FzqtOIw=

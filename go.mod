@@ -4,7 +4,7 @@ go 1.17
 
 require (
 	github.com/AlecAivazis/survey/v2 v2.3.6
-	github.com/bool64/ctxd v1.1.3
+	github.com/bool64/ctxd v1.2.1
 	github.com/bool64/zapctxd v1.0.0
 	github.com/cucumber/godog v0.12.5
 	github.com/gocarina/gocsv v0.0.0-20220531201732-5f969b02b902

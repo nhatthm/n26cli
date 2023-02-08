@@ -9,15 +9,30 @@ env:
   GO_VERSION: 1.20.x
 
 jobs:
-  release-macos:
-    runs-on: macos-latest
+  get-release:
+    runs-on: ubuntu-latest
+    outputs:
+      tag_name: ${{ steps.get-release.outputs.tag_name }}
+      upload_url: ${{ steps.get-release.outputs.upload_url }}
     steps:
       - name: Get release
-        id: get_release
+        id: get-release
         uses: bruceadams/get-release@v1.3.2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+  release:
+    needs: get-release
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ ubuntu-latest, macos-latest, windows-latest ]
+        arch: [ "386", amd64, arm64 ]
+        exclude:
+          - os: macos-latest
+            arch: "386"
+    runs-on: ${{ matrix.os }}
+    steps:
       - name: Install Go
         uses: actions/setup-go@v3
         with:
@@ -39,22 +54,25 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-go-${{ env.GO_VERSION }}-cache
 
-      - name: Test
-        run: |
-          make test
-
       - name: Build Artifact
         id: build_artifact
         env:
-          VERSION: ${{ steps.get_release.outputs.tag_name }}
+          VERSION: ${{ needs.get-release.outputs.tag_name }}
+          BUILD_OS: ${{ matrix.os }}
+          BUILD_ARCH: ${{ matrix.arch }}
         run: |
           export VERSION=$(echo "$VERSION" | tr -d 'v')
+
+          if [[ "$BUILD_OS" == "windows-latest" ]]; then
+            BUILD_OS="windows"
+          elif [[ "$BUILD_OS" == "macos-latest" ]]; then
+            BUILD_OS="darwin"
+          else
+            BUILD_OS="linux"
+          fi
 
           make build
 
-          export BUILD_OS="darwin"
-          export BUILD_ARCH="amd64"
-
           cd build
           tar czf n26-${VERSION}-${BUILD_OS}-${BUILD_ARCH}.tar.gz n26
 
@@ -67,81 +85,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ steps.get_release.outputs.upload_url }}
-          asset_path: build/n26-${{ env.BUILD_VERSION }}-${{ env.BUILD_OS }}-${{ env.BUILD_ARCH }}.tar.gz
-          asset_name: n26-${{ env.BUILD_VERSION }}-${{ env.BUILD_OS }}-${{ env.BUILD_ARCH }}.tar.gz
-          asset_content_type: application/gzip
-
-  release-ubuntu:
-    runs-on: ubuntu-latest
-    container:
-      image: nhatthm/ubuntu-keyring:20.04
-      options: --privileged
-    steps:
-      - name: Get release
-        id: get_release
-        uses: bruceadams/get-release@v1.3.2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Install Go
-        uses: actions/setup-go@v3
-        with:
-          go-version: ${{ env.GO_VERSION }}
-
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Go cache
-        uses: actions/cache@v3
-        with:
-          # In order:
-          # * Module download cache
-          # * Build cache
-          path: |
-            ~/go/pkg/mod
-            ~/.cache/go-build
-          key: ${{ runner.os }}-go-${{ env.GO_VERSION }}-cache-${{ hashFiles('**/go.sum') }}
-          restore-keys: |
-            ${{ runner.os }}-go-${{ env.GO_VERSION }}-cache
-
-      - name: Test
-        id: test
-        run: |
-          mkdir -p /github/home/.cache/
-          mkdir -p /github/home/.local/share/keyrings/
-          chmod 700 -R /github/home/.local/
-          echo 'somecredstorepass' | gnome-keyring-daemon --unlock
-          make test
-        shell: dbus-run-session -- bash --noprofile --norc -eo pipefail {0}
-
-      - name: Build Artifact
-        id: build_artifact
-        env:
-          VERSION: ${{ steps.get_release.outputs.tag_name }}
-        run: |
-          export VERSION=$(echo "$VERSION" | tr -d 'v')
-
-          make build-linux
-
-          mv build/n26-linux build/n26
-
-          export BUILD_OS="linux"
-          export BUILD_ARCH="amd64"
-
-          cd build
-          tar czf n26-${VERSION}-${BUILD_OS}-${BUILD_ARCH}.tar.gz n26
-
-          echo "BUILD_VERSION=$VERSION" >> $GITHUB_ENV
-          echo "BUILD_OS=$BUILD_OS" >> $GITHUB_ENV
-          echo "BUILD_ARCH=$BUILD_ARCH" >> $GITHUB_ENV
-
-      - name: Upload Artifact
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.get_release.outputs.upload_url }}
+          upload_url: ${{ needs.get-release.outputs.upload_url }}
           asset_path: build/n26-${{ env.BUILD_VERSION }}-${{ env.BUILD_OS }}-${{ env.BUILD_ARCH }}.tar.gz
           asset_name: n26-${{ env.BUILD_VERSION }}-${{ env.BUILD_OS }}-${{ env.BUILD_ARCH }}.tar.gz
           asset_content_type: application/gzip

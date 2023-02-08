@@ -3,20 +3,20 @@ package bootstrap
 import (
 	"flag"
 	"fmt"
-	"io/ioutil"
 	"math/rand"
+	"os"
 	"path/filepath"
 	"strings"
 	"testing"
 
 	"github.com/cucumber/godog"
 	"github.com/godogx/aferosteps"
-	"github.com/nhatthm/clockdog"
-	"github.com/nhatthm/consoledog"
+	"github.com/godogx/clocksteps"
 	"github.com/nhatthm/n26godog"
-	"github.com/nhatthm/surveydog"
-	"github.com/nhatthm/surveyexpect"
 	"github.com/stretchr/testify/assert"
+	"go.nhat.io/consolesteps"
+	"go.nhat.io/surveyexpect"
+	"go.nhat.io/surveysteps"
 )
 
 // Used by init().
@@ -33,11 +33,9 @@ var (
 )
 
 // This has to run on init to define -godog flag, otherwise "undefined flag" error happens.
-//
-//nolint:gochecknoinits
-func init() {
+func init() { //nolint:gochecknoinits
 	flag.BoolVar(&runGoDogTests, "godog", false, "Set this flag is you want to run godog BDD tests")
-	godog.BindFlags("godog.", flag.CommandLine, &opt) // nolint: staticcheck
+	godog.BindFlags("godog.", flag.CommandLine, &opt)
 }
 
 func TestIntegration(t *testing.T) {
@@ -46,11 +44,11 @@ func TestIntegration(t *testing.T) {
 	}
 
 	server := n26godog.New(t)
-	clock := clockdog.New()
+	clock := clocksteps.New()
 	am := newAppManager(t, server.URL(), clock)
 	fsManager := aferosteps.NewManager()
-	console := consoledog.New(t)
-	survey := surveydog.New(t).
+	console := consolesteps.New(t)
+	survey := surveysteps.New(t).
 		WithConsole(console).
 		WithStarter(am.WithStdio)
 
@@ -75,7 +73,7 @@ func RunSuite(t *testing.T, path string, featureContext func(t *testing.T, ctx *
 
 	var paths []string
 
-	files, err := ioutil.ReadDir(filepath.Clean(path))
+	files, err := os.ReadDir(filepath.Clean(path))
 	assert.NoError(t, err)
 
 	paths = make([]string, 0, len(files))

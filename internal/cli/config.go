@@ -5,6 +5,7 @@ import (
 
 	"github.com/google/uuid"
 	"github.com/imdario/mergo"
+
 	"github.com/nhatthm/n26cli/internal/service"
 )
 
@@ -36,7 +37,7 @@ func uuidTransformer() *transformersCallback {
 
 		return func(dst reflect.Value, src reflect.Value) error {
 			if dst.CanSet() {
-				if val := dst.Interface().(uuid.UUID); val == emptyUUID { // nolint: errcheck
+				if val := dst.Interface().(uuid.UUID); val == emptyUUID { //nolint: errcheck
 					dst.Set(src)
 				}
 			}

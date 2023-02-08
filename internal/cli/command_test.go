@@ -5,13 +5,14 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/nhatthm/aferomock"
-	"github.com/nhatthm/n26cli/internal/app"
-	"github.com/nhatthm/n26cli/internal/service"
 	"github.com/spf13/afero/mem"
 	"github.com/spf13/cobra"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
+	"go.nhat.io/aferomock"
+
+	"github.com/nhatthm/n26cli/internal/app"
+	"github.com/nhatthm/n26cli/internal/service"
 )
 
 func TestNewAPICommand_NoRunner(t *testing.T) {

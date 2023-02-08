@@ -9,7 +9,7 @@ type testingT struct {
 }
 
 func (t *testingT) Errorf(format string, args ...interface{}) {
-	t.err = fmt.Errorf(format, args...) // nolint: goerr113
+	t.err = fmt.Errorf(format, args...) //nolint: goerr113
 }
 
 func (t *testingT) LastError() error {

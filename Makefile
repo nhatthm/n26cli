@@ -3,8 +3,12 @@ CMD=n26
 VENDOR_DIR = vendor
 BUILD_DIR = build
 
+GITHUB_OUTPUT ?= /dev/null
+
+GOLANGCI_LINT_VERSION ?= v1.51.1
+
 GO ?= go
-GOLANGCI_LINT ?= golangci-lint
+GOLANGCI_LINT ?= $(shell go env GOPATH)/bin/golangci-lint-$(GOLANGCI_LINT_VERSION)
 
 $(info >> GOFLAGS: ${GOFLAGS})
 ifneq "$(wildcard ./vendor )" ""
@@ -22,7 +26,7 @@ $(VENDOR_DIR):
 	@$(GO) mod vendor
 	@$(GO) mod tidy
 
-lint:
+lint: $(GOLANGCI_LINT) $(VENDOR_DIR)
 	@$(GOLANGCI_LINT) run
 
 test: test-unit test-integration
@@ -45,3 +49,13 @@ build:
 	@echo ">> building binary, GOFLAGS: $(GOFLAGS)"
 	@rm -f $(BUILD_DIR)/*
 	@$(GO) build -ldflags "$(shell ./resources/scripts/build_args.sh)" -o $(BUILD_DIR)/$(CMD) cmd/$(CMD)/*
+
+.PHONY: $(GITHUB_OUTPUT)
+$(GITHUB_OUTPUT):
+	@echo "MODULE_NAME=$(MODULE_NAME)" >> "$@"
+	@echo "GOLANGCI_LINT_VERSION=$(GOLANGCI_LINT_VERSION)" >> "$@"
+
+$(GOLANGCI_LINT):
+	@echo "$(OK_COLOR)==> Installing golangci-lint $(GOLANGCI_LINT_VERSION)$(NO_COLOR)"; \
+	curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b ./bin "$(GOLANGCI_LINT_VERSION)"
+	@mv ./bin/golangci-lint $(GOLANGCI_LINT)

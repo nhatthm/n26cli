@@ -28,6 +28,7 @@ linters:
     - gochecknoglobals
     - golint
     - gomnd
+    - gomoddirectives
     - ifshort
     - interfacer
     - ireturn
@@ -37,8 +38,8 @@ linters:
     - paralleltest
     - scopelint
     - testpackage
-    - wrapcheck
     - varnamelen
+    - wrapcheck
 
 issues:
   exclude-use-default: false

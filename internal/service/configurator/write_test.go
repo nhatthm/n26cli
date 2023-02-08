@@ -8,11 +8,11 @@ import (
 	"testing"
 
 	"github.com/google/uuid"
-	"github.com/nhatthm/aferomock"
 	keychainCredentialsMock "github.com/nhatthm/n26keychain/credentials/mock"
 	keychainTokenMock "github.com/nhatthm/n26keychain/token/mock"
 	"github.com/spf13/afero"
 	"github.com/stretchr/testify/assert"
+	"go.nhat.io/aferomock"
 
 	"github.com/nhatthm/n26cli/internal/service"
 )

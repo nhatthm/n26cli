@@ -26,7 +26,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ ubuntu-latest, macos-latest, windows-latest ]
+        os: [ ubuntu-latest, macos-latest ]
         arch: [ "386", amd64, arm64 ]
         exclude:
           - os: macos-latest
@@ -63,9 +63,7 @@ jobs:
         run: |
           export VERSION=$(echo "$VERSION" | tr -d 'v')
 
-          if [[ "$BUILD_OS" == "windows-latest" ]]; then
-            BUILD_OS="windows"
-          elif [[ "$BUILD_OS" == "macos-latest" ]]; then
+          if [[ "$BUILD_OS" == "macos-latest" ]]; then
             BUILD_OS="darwin"
           else
             BUILD_OS="linux"

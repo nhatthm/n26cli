@@ -146,11 +146,11 @@ func (c *PromptConfigurator) askCredentials(username, password *string) error {
 	}
 
 	if answer["username"] != "" {
-		*username = answer["username"].(string) // nolint: errcheck
+		*username = answer["username"].(string) //nolint: errcheck
 	}
 
 	if answer["password"] != "" {
-		*password = answer["password"].(string) // nolint: errcheck
+		*password = answer["password"].(string) //nolint: errcheck
 	}
 
 	return nil

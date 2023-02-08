@@ -13,7 +13,7 @@ import (
 
 	"github.com/AlecAivazis/survey/v2/terminal"
 	"github.com/cucumber/godog"
-	"github.com/nhatthm/clockdog"
+	"github.com/godogx/clocksteps"
 	"github.com/spf13/afero"
 	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
@@ -27,13 +27,13 @@ import (
 )
 
 var (
-	credentialsService = "n26api.credentials.test" // nolint: gosec
-	tokenService       = "n26api.token.test"       // nolint: gosec
+	credentialsService = "n26api.credentials.test" //nolint: gosec
+	tokenService       = "n26api.token.test"       //nolint: gosec
 )
 
 type appManager struct {
 	fs    afero.Fs
-	clock *clockdog.Clock
+	clock *clocksteps.Clock
 	stdio terminal.Stdio
 	test  *testing.T
 
@@ -102,7 +102,7 @@ func (m *appManager) device() (string, error) {
 	device := cfg.GetString("n26.device")
 
 	if device == "" {
-		return "", errors.New("device id is empty") // nolint: goerr113
+		return "", errors.New("device id is empty") //nolint: goerr113
 	}
 
 	return device, nil
@@ -169,7 +169,7 @@ func (m *appManager) runCommand(args []string) (err error) {
 
 	select {
 	case <-time.After(time.Second):
-		return errors.New("command timed out") // nolint: goerr113
+		return errors.New("command timed out") //nolint: goerr113
 
 	case <-doneCh:
 		return
@@ -206,7 +206,7 @@ func (m *appManager) isNotDevice(expected string) error {
 func (m *appManager) hasNoCredentialsInKeychain(device string) error {
 	_, err := m.keyring(credentialsService, device)
 	if err == nil {
-		return fmt.Errorf("(service=%q, key=%q) exists in keychain", credentialsService, device) // nolint: goerr113
+		return fmt.Errorf("(service=%q, key=%q) exists in keychain", credentialsService, device) //nolint: goerr113
 	}
 
 	t := t()
@@ -243,7 +243,7 @@ func (m *appManager) hasCredentialsInKeychain(username, password string) error {
 	return t.LastError()
 }
 
-func newAppManager(t *testing.T, baseURL string, clock *clockdog.Clock) *appManager {
+func newAppManager(t *testing.T, baseURL string, clock *clocksteps.Clock) *appManager {
 	t.Helper()
 
 	return &appManager{

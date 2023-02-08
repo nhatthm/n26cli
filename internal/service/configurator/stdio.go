@@ -3,8 +3,8 @@ package configurator
 import (
 	"github.com/AlecAivazis/survey/v2/terminal"
 
-	"github.com/nhatthm/surveyexpect/options"
-	"github.com/nhatthm/surveyexpect/options/cobra"
+	"go.nhat.io/surveyexpect/options"
+	"go.nhat.io/surveyexpect/options/cobra"
 )
 
 // WithStdio configures stdio for prompt.

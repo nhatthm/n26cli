@@ -21,7 +21,6 @@ Feature: Configure
         credentials = ''
         device = '<regexp:\b[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}\b/>'
 
-
         """
 
     Scenario: No config file and use keychain
@@ -45,7 +44,6 @@ Feature: Configure
         [n26]
         credentials = 'keychain'
         device = '<regexp:\b[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}\b/>'
-
 
         """
 
@@ -81,7 +79,6 @@ Feature: Configure
         credentials = ''
         device = '<regexp:\b[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}\b/>'
 
-
         """
 
         And configured device is not "ed24ad1f-94a4-4ac6-a097-f2bc54f58f0c"
@@ -112,7 +109,6 @@ Feature: Configure
         [n26]
         credentials = ''
         device = 'ed24ad1f-94a4-4ac6-a097-f2bc54f58f0c'
-
 
         """
 
@@ -145,7 +141,6 @@ Feature: Configure
         [n26]
         credentials = 'keychain'
         device = 'ed24ad1f-94a4-4ac6-a097-f2bc54f58f0c'
-
 
         """
 
@@ -180,7 +175,6 @@ Feature: Configure
         [n26]
         credentials = ''
         device = 'ed24ad1f-94a4-4ac6-a097-f2bc54f58f0c'
-
 
         """
 
@@ -219,7 +213,6 @@ Feature: Configure
         [n26]
         credentials = 'keychain'
         device = 'ed24ad1f-94a4-4ac6-a097-f2bc54f58f0c'
-
 
         """
 

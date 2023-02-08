@@ -9,7 +9,8 @@ import (
 )
 
 // Build information. Populated at build-time.
-// nolint:gochecknoglobals
+//
+//nolint:gochecknoglobals
 var (
 	version      = "dev"
 	revision     string

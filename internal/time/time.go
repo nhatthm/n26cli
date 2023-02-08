@@ -3,7 +3,7 @@ package time
 import (
 	"time"
 
-	"github.com/nhatthm/timeparser"
+	"go.nhat.io/timeparser"
 )
 
 // Period returns a time period from given input.

@@ -1,11 +1,13 @@
 name: release
+
 on:
   release:
     types:
       - created
+
 env:
-  GO111MODULE: "on"
-  GO_VERSION: "1.17"
+  GO_VERSION: 1.20.x
+
 jobs:
   release-macos:
     runs-on: macos-latest

@@ -1,10 +1,11 @@
+// Package main provides the main entry point for the n26 command line tool.
 package main
 
 import (
 	"fmt"
 	"os"
 
-	homedir "github.com/mitchellh/go-homedir"
+	"github.com/mitchellh/go-homedir"
 
 	"github.com/nhatthm/n26cli/internal/app"
 	"github.com/nhatthm/n26cli/internal/cli"

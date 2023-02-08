@@ -7,13 +7,13 @@ import (
 
 	"github.com/bool64/ctxd"
 	"github.com/bool64/zapctxd"
-	"github.com/nhatthm/go-clock"
 	"github.com/nhatthm/n26aas"
 	"github.com/nhatthm/n26api"
 	keychain "github.com/nhatthm/n26keychain/credentials"
 	"github.com/nhatthm/n26keychain/token"
 	prompt "github.com/nhatthm/n26prompt/credentials"
 	"github.com/spf13/afero"
+	"go.nhat.io/clock"
 
 	"github.com/nhatthm/n26cli/internal/io"
 	"github.com/nhatthm/n26cli/internal/service"

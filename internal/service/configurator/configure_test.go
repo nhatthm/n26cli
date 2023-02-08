@@ -13,16 +13,15 @@ import (
 	"github.com/google/uuid"
 	keychainCredentialsMock "github.com/nhatthm/n26keychain/credentials/mock"
 	keychainTokenMock "github.com/nhatthm/n26keychain/token/mock"
-	"github.com/nhatthm/surveyexpect"
 	"github.com/spf13/viper"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"go.nhat.io/surveyexpect"
 
 	"github.com/nhatthm/n26cli/internal/service"
 )
 
-// nolint: gochecknoinits
-func init() {
+func init() { //nolint: gochecknoinits
 	surveyexpect.ReactionTime = 10 * time.Millisecond
 }
 

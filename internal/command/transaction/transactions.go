@@ -4,9 +4,9 @@ import (
 	"context"
 
 	"github.com/bool64/ctxd"
-	"github.com/nhatthm/go-clock"
 	"github.com/nhatthm/n26api/pkg/transaction"
 	"github.com/spf13/cobra"
+	"go.nhat.io/clock"
 
 	"github.com/nhatthm/n26cli/internal/io"
 	"github.com/nhatthm/n26cli/internal/service"

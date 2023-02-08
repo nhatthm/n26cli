@@ -22,7 +22,7 @@ require (
 	github.com/nhatthm/n26godog v0.4.0
 	github.com/nhatthm/n26keychain v0.5.0
 	github.com/nhatthm/n26prompt v0.5.0
-	github.com/nhatthm/surveydog v0.7.0
+	github.com/nhatthm/surveydog v0.8.0
 	github.com/nhatthm/surveyexpect v0.7.0
 	github.com/nhatthm/timeparser v0.2.0
 	github.com/spf13/afero v1.9.3

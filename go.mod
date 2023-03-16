@@ -11,7 +11,7 @@ require (
 	github.com/godogx/aferosteps v0.2.0
 	github.com/godogx/clocksteps v0.3.0
 	github.com/google/uuid v1.3.0
-	github.com/imdario/mergo v0.3.13
+	github.com/imdario/mergo v0.3.14
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/mitchellh/mapstructure v1.5.0
 	github.com/nhatthm/n26aas v0.4.0

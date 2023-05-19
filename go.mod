@@ -23,7 +23,7 @@ require (
 	github.com/spf13/cobra v1.6.1
 	github.com/spf13/pflag v1.0.5
 	github.com/spf13/viper v1.15.0
-	github.com/stretchr/testify v1.8.2
+	github.com/stretchr/testify v1.8.3
 	github.com/zalando/go-keyring v0.2.3
 	go.nhat.io/aferomock v0.4.0
 	go.nhat.io/clock v0.7.0

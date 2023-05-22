@@ -5,7 +5,7 @@ BUILD_DIR = build
 
 GITHUB_OUTPUT ?= /dev/null
 
-GOLANGCI_LINT_VERSION ?= v1.51.1
+GOLANGCI_LINT_VERSION ?= v1.52.2
 
 GO ?= go
 GOLANGCI_LINT ?= $(shell go env GOPATH)/bin/golangci-lint-$(GOLANGCI_LINT_VERSION)

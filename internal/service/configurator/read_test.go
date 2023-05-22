@@ -13,7 +13,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestPromptConfigurator_SafeRead(t *testing.T) {}
+func TestPromptConfigurator_SafeRead(*testing.T) {}
 
 func TestPromptConfigurator_Read_FileDoesNotExist(t *testing.T) {
 	t.Parallel()

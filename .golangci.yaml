@@ -20,6 +20,7 @@ linters-settings:
 linters:
   enable-all: true
   disable:
+    - deadcode
     - exhaustivestruct
     - exhaustruct
     - forbidigo
@@ -35,9 +36,12 @@ linters:
     - lll
     - maligned
     - nonamedreturns
+    - nosnakecase
     - paralleltest
     - scopelint
+    - structcheck
     - testpackage
+    - varcheck
     - varnamelen
     - wrapcheck
 

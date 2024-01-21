@@ -51,20 +51,20 @@ func (m *appManager) WithStdio(_ *godog.Scenario, stdio terminal.Stdio) {
 	m.stdio = stdio
 }
 
-func (m *appManager) registerContext(ctx *godog.ScenarioContext) {
-	ctx.After(func(context.Context, *godog.Scenario, error) (context.Context, error) {
+func (m *appManager) RegisterSteps(s *godog.ScenarioContext) {
+	s.After(func(context.Context, *godog.Scenario, error) (context.Context, error) {
 		m.cleanup()
 
 		return nil, nil
 	})
 
-	ctx.Step(`run command "([^"]*)"`, m.runCommandSimple)
-	ctx.Step(`run command (\[[^\]]*\])`, m.runCommandArgs)
-	ctx.Step(`create a credentials "([^"]+)" in keychain with content:`, m.createKeychainKey)
-	ctx.Step(`delete token "([^"]+)" in keychain`, m.deleteKeychainToken)
-	ctx.Step(`configured device is not "([^"]*)"`, m.isNotDevice)
-	ctx.Step(`keychain has no credentials "([^"]*)"`, m.hasNoCredentialsInKeychain)
-	ctx.Step(`keychain has username "([^"]*)" and password "([^"]*)"`, m.hasCredentialsInKeychain)
+	s.Step(`run command "([^"]*)"`, m.runCommandSimple)
+	s.Step(`run command (\[[^\]]*\])`, m.runCommandArgs)
+	s.Step(`create a credentials "([^"]+)" in keychain with content:`, m.createKeychainKey)
+	s.Step(`delete token "([^"]+)" in keychain`, m.deleteKeychainToken)
+	s.Step(`configured device is not "([^"]*)"`, m.isNotDevice)
+	s.Step(`keychain has no credentials "([^"]*)"`, m.hasNoCredentialsInKeychain)
+	s.Step(`keychain has username "([^"]*)" and password "([^"]*)"`, m.hasCredentialsInKeychain)
 }
 
 func (m *appManager) cleanup() {
@@ -170,9 +170,8 @@ func (m *appManager) runCommand(args []string) (err error) {
 	select {
 	case <-time.After(time.Second):
 		return errors.New("command timed out") //nolint: goerr113
-
 	case <-doneCh:
-		return
+		return nil
 	}
 }
 

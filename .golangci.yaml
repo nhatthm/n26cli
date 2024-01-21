@@ -21,6 +21,7 @@ linters:
   enable-all: true
   disable:
     - deadcode
+    - depguard
     - exhaustivestruct
     - exhaustruct
     - forbidigo
@@ -37,15 +38,19 @@ linters:
     - maligned
     - nonamedreturns
     - nosnakecase
+    - nolintlint # https://github.com/golangci/golangci-lint/issues/3063
     - paralleltest
     - scopelint
     - structcheck
+    - tagliatelle
+    - testifylint
     - testpackage
     - varcheck
     - varnamelen
     - wrapcheck
 
 issues:
+  max-same-issues: 20
   exclude-use-default: false
   exclude-rules:
     - linters:

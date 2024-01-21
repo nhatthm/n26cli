@@ -6,7 +6,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	. "github.com/nhatthm/n26cli/internal/time"
+	. "github.com/nhatthm/n26cli/internal/time" //nolint: revive
 )
 
 func TestPeriod(t *testing.T) {

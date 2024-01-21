@@ -7,53 +7,52 @@ on:
   pull_request:
   workflow_dispatch:
 
-env:
-  GO_LATEST_VERSION: "1.20.x"
-
 jobs:
+  setup:
+    runs-on: ubuntu-latest
+    outputs:
+      go-latest-version: ${{ steps.find-go-version.outputs.go-latest-version }}
+      go-supported-versions: ${{ steps.find-go-version.outputs.go-supported-versions }}
+    steps:
+      - name: Checkout code
+        uses: nhatthm/gh-actions/checkout@master
+
+      - id: find-go-version
+        name: Find Go version
+        uses: nhatthm/gh-actions/find-go-version@master
+
   test-macos:
     strategy:
       fail-fast: false
       matrix:
-        go-version: [ 1.20.x ]
+        go-version: ${{ fromJson(needs.setup.outputs.go-supported-versions) }}
     runs-on: macos-latest
+    needs: [setup]
+    env:
+      GO_LATEST_VERSION: ${{ needs.setup.outputs.go-latest-version }}
     steps:
+      - name: Checkout code
+        uses: nhatthm/gh-actions/checkout@master
+
       - name: Install Go
-        uses: actions/setup-go@v5
+        uses: nhatthm/gh-actions/setup-go@master
         with:
           go-version: ${{ matrix.go-version }}
 
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Go cache
-        uses: actions/cache@v3
-        with:
-          # In order:
-          # * Module download cache
-          # * Build cache
-          path: |
-            ~/go/pkg/mod
-            ~/.cache/go-build
-          key: ${{ runner.os }}-go-${{ matrix.go-version }}-cache-${{ hashFiles('**/go.sum') }}
-          restore-keys: |
-            ${{ runner.os }}-go-${{ matrix.go-version }}-cache
-
       - name: Test
-        id: test
         run: |
           make test
 
       - name: Upload code coverage (unit)
         if: matrix.go-version == env.GO_LATEST_VERSION
-        uses: codecov/codecov-action@v3
+        uses: nhatthm/gh-actions/codecov@master
         with:
           files: ./unit.coverprofile
           flags: unittests-${{ runner.os }}
 
       - name: Upload code coverage (features)
         if: matrix.go-version == env.GO_LATEST_VERSION
-        uses: codecov/codecov-action@v3
+        uses: nhatthm/gh-actions/codecov@master
         with:
           files: ./features.coverprofile
           flags: featurestests-${{ runner.os }}
@@ -62,35 +61,24 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        go-version: [ 1.20.x ]
+        go-version: ${{ fromJson(needs.setup.outputs.go-supported-versions) }}
     runs-on: ubuntu-latest
+    needs: [setup]
+    env:
+      GO_LATEST_VERSION: ${{ needs.setup.outputs.go-latest-version }}
     container:
       image: nhatthm/ubuntu-keyring:20.04
       options: --privileged
     steps:
+      - name: Checkout code
+        uses: nhatthm/gh-actions/checkout@master
+
       - name: Install Go
-        uses: actions/setup-go@v5
+        uses: nhatthm/gh-actions/setup-go@master
         with:
           go-version: ${{ matrix.go-version }}
 
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Go cache
-        uses: actions/cache@v3
-        with:
-          # In order:
-          # * Module download cache
-          # * Build cache
-          path: |
-            ~/go/pkg/mod
-            ~/.cache/go-build
-          key: ${{ runner.os }}-go-${{ matrix.go-version }}-cache-${{ hashFiles('**/go.sum') }}
-          restore-keys: |
-            ${{ runner.os }}-go-${{ matrix.go-version }}-cache
-
       - name: Test
-        id: test
         run: |
           mkdir -p /github/home/.cache/
           mkdir -p /github/home/.local/share/keyrings/
@@ -101,14 +89,14 @@ jobs:
 
       - name: Upload code coverage (unit)
         if: matrix.go-version == env.GO_LATEST_VERSION
-        uses: codecov/codecov-action@v3
+        uses: nhatthm/gh-actions/codecov@master
         with:
           files: ./unit.coverprofile
           flags: unittests-${{ runner.os }}
 
       - name: Upload code coverage (features)
         if: matrix.go-version == env.GO_LATEST_VERSION
-        uses: codecov/codecov-action@v3
+        uses: nhatthm/gh-actions/codecov@master
         with:
           files: ./features.coverprofile
           flags: featurestests-${{ runner.os }}

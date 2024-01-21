@@ -53,8 +53,8 @@ func TestIntegration(t *testing.T) {
 		WithStarter(am.WithStdio)
 
 	RunSuite(t, "..", func(_ *testing.T, ctx *godog.ScenarioContext) {
-		am.registerContext(ctx)
-		clock.RegisterContext(ctx)
+		am.RegisterSteps(ctx)
+		clock.RegisterSteps(ctx)
 		fsManager.RegisterContext(t, ctx)
 		console.RegisterContext(ctx)
 		survey.RegisterContext(ctx)

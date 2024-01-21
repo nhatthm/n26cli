@@ -5,9 +5,6 @@ on:
     types:
       - created
 
-env:
-  GO_VERSION: "1.20.x"
-
 jobs:
   get-release:
     runs-on: ubuntu-latest
@@ -17,9 +14,9 @@ jobs:
     steps:
       - name: Get release
         id: get-release
-        uses: bruceadams/get-release@v1.3.2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: nhatthm/gh-actions/github-get-release@master
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
   release:
     needs: get-release
@@ -33,26 +30,16 @@ jobs:
             arch: "386"
     runs-on: ${{ matrix.os }}
     steps:
-      - name: Install Go
-        uses: actions/setup-go@v5
-        with:
-          go-version: ${{ env.GO_VERSION }}
-
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: nhatthm/gh-actions/checkout@master
 
-      - name: Go cache
-        uses: actions/cache@v3
+      - name: Setup
+        uses: nhatthm/gh-actions/find-go-version@master
+
+      - name: Install Go
+        uses: nhatthm/gh-actions/setup-go@master
         with:
-          # In order:
-          # * Module download cache
-          # * Build cache
-          path: |
-            ~/go/pkg/mod
-            ~/.cache/go-build
-          key: ${{ runner.os }}-go-${{ env.GO_VERSION }}-cache-${{ hashFiles('**/go.sum') }}
-          restore-keys: |
-            ${{ runner.os }}-go-${{ env.GO_VERSION }}-cache
+          go-version: ${{ env.GO_LATEST_VERSION }}
 
       - name: Build Artifact
         id: build_artifact
@@ -79,11 +66,10 @@ jobs:
           echo "BUILD_ARCH=$BUILD_ARCH" >> $GITHUB_ENV
 
       - name: Upload Artifact
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: nhatthm/gh-actions/github-upload-release-asset@master
         with:
           upload_url: ${{ needs.get-release.outputs.upload_url }}
           asset_path: build/n26-${{ env.BUILD_VERSION }}-${{ env.BUILD_OS }}-${{ env.BUILD_ARCH }}.tar.gz
           asset_name: n26-${{ env.BUILD_VERSION }}-${{ env.BUILD_OS }}-${{ env.BUILD_ARCH }}.tar.gz
           asset_content_type: application/gzip
+          token: ${{ secrets.GITHUB_TOKEN }}

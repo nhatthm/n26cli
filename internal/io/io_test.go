@@ -9,6 +9,6 @@ func (w *errorWriter) Write([]byte) (_ int, err error) {
 }
 
 type testData struct {
-	Name  string `json:"name" csv:"name"`
-	Value string `json:"value" csv:"value"`
+	Name  string `csv:"name"  json:"name"`
+	Value string `csv:"value" json:"value"`
 }
